@@ -1,0 +1,59 @@
+<nav id="navbar-nav" class="navbar border-bottom-3 navbar-expand-lg py-3 navbar-light bg-light">
+  <div class="container">
+    <a id="login-image-anchor" onclick="fnr()" class="navbar-brand" href=""><img src="static/images/logo.jpg" alt="logo" width="35" height="35" style="border-radius:50%;" class="d-inline-block  align-text-top mx-2"></a>
+    
+    <div>
+      
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+      
+    </button>
+    
+    
+    </div>
+    
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        
+
+        
+        
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/">Home</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/contactUs">contact-us</a>
+          </li>
+          
+           
+
+          {{!-- <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/adminLogin">admin</a>
+          </li> --}}
+
+
+          <li class="nav-item">
+           
+            <a onclick="loginfn()" id="login-logo-anchor" class="nav-link active" type="button" aria-current="page" >{{loginLogoName}}</a>
+            <a id="logout-logo-anchor-1" class="nav-link active" type="button" aria-current="page" href="/student-logout" hidden>Logout</a>
+          </li>
+          
+          
+      </ul>
+      
+    </div>
+  </div>
+</nav>
+<script>
+  
+  
+  function loginfn(){
+    var loginName={{loginLogoName}}
+    console.log(loginName)
+      console.log('lfdj')
+  }
+  
+</script>
+
+

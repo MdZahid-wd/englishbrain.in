@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Responsive Video Playlist Tutorial</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/static/css/style.css">
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js"
+    integrity="sha512-naukR7I+Nk6gp7p5TMA4ycgfxaZBJ7MO5iC3Fp6ySQyKFHOGfpkSZkYVWV5R7u7cfAicxanwYQ5D1e17EfJcMA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+</head>
+<body>
+   {{>navbar loginLogoName=loginLogoName}}
+<section class="play-video-section">
+<div class="play-video-container">
+
+   <div class="main-video-container">
+      <video id="main-video-div" controls autoplay muted class="main-video">
+         <source class="istSrc" src="https://files.englishbrain.in/videos/video/{{istVideoSrc}}/MP4/{{istVideoSrc}}.mp4" type="video/mp4"/>
+         <source onerror="fn()" class="secondSrc" src="https://files.englishbrain.in/videos/videoF/{{istVideoSrc}}/MP4/{{istVideoSrc}}.mp4" type="video/mp4"/>
+      </video>
+      <h3 class="main-vid-title">{{istVideoTitle}}</h3>
+   </div>
+
+   <div class="video-list-container">
+   {{#each videos}}
+      <div class="list {{active}}">
+         <video id={{this.videoNo}} class="list-video" poster="https://files.englishbrain.in/videos/video/{{videoKey}}/Thumbnails/{{videoKey}}.0000000.jpg">
+            <source  class="istSrc" src="https://files.englishbrain.in/videos/video/{{videoKey}}/MP4/{{videoKey}}.mp4" type="video/mp4"/>
+            <source class="secondSrc" src="https://files.englishbrain.in/videos/videoF/{{videoKey}}/MP4/{{videoKey}}.mp4" type="video/mp4"/>
+         </video>
+         <h3 class="list-title">{{this.title}}</h3>
+         <button class="payed-anchor" type="submit" form="courseNo-pay-form" hidden>payed</button>
+      </div>
+   {{/each}}
+
+      
+   </div>
+
+</div>
+
+    
+   
+</section>    
+  <div id="pay-button-div"  hidden>
+      <form id="courseNo-pay-form" action="/paynow" method="post">
+         <input name="courseNo" value="{{courseNo}}" type="number" hidden>
+         <button type="submit" class="btn form-control btn-primary">Buy course</button>
+      </form>
+   </div> 
+    
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
+
+
+
+<script>
+
+
+  let videoList = document.querySelectorAll('.video-list-container .list');
+    videoList.forEach(vid =>{
+      vid.onclick = () =>{
+          videoList.forEach(remove =>{remove.classList.remove('active')});
+          vid.classList.add('active');
+          let src1 = vid.querySelector('.list-video .istSrc').src;
+          let src2 = vid.querySelector('.list-video .secondSrc').src;
+          
+
+          let title = vid.querySelector('.list-title').innerHTML;
+          document.querySelector('.main-video-container .main-video .istSrc').src = src1;
+          document.querySelector('.main-video-container .main-video .secondSrc').src = src2;
+          document.querySelector('.main-video-container .main-video').load();
+          document.querySelector('.main-video-container .main-vid-title').innerHTML = title;
+      };
+    });
+</script>
+<script>
+   var totalDemoVideo={{{totalDemoVideo}}}
+   var totalVideo={{{totalVideo}}}
+          function fn(){
+            console.log('error')
+            document.getElementById('pay-button-div').removeAttribute('hidden');
+            for(var i=totalDemoVideo;i<=totalVideo;i++){
+               document.getElementById(i+1).style.opacity='0.6'
+               document.getElementsByClassName('payed-anchor')[i].removeAttribute('hidden');
+            }
+            console.log({{{totalVideo}}})
+          }
+</script>
+
+
+</body>
+</html>
