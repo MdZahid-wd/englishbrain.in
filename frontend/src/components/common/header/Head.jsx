@@ -1,8 +1,25 @@
 import React from "react";
 import { useState } from "react";
 import Login from "../../login/Login";
+
 const Head = () => {
-  const [x, setx] = useState("login");
+  console.log("checked head");
+  const [login, setLogin] = useState(false);
+  function loginHandler() {
+    console.log("clicked");
+    if (!login) {
+      setLogin(true);
+    }
+  }
+  document.body.addEventListener("click", function (e) {
+    let a = e.target.classList.value;
+    let b = document.getElementsByClassName(a);
+    if (b == document.getElementsByClassName("login-section")) {
+      console.log("section");
+    }
+
+    console.log(a, b);
+  });
 
   return (
     <>
@@ -14,15 +31,13 @@ const Head = () => {
           </div>
 
           <div className="social">
-            <a href="/login">
-              <i className="fa fa-user icon">
-                <h2>{x}</h2>
-              </i>
-            </a>
+            <i onClick={() => loginHandler()} class="fa-regular fa-user icon">
+              <p>Login</p>
+            </i>
           </div>
         </div>
       </section>
-      <Login />
+      {login && <Login></Login>}
     </>
   );
 };
