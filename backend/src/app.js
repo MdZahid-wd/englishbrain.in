@@ -183,6 +183,6 @@ routes.post("/callback", (req, res) => {
     );
   });
 });
-app.listen(process.env.PORT || 5000, (req, res) => {
+app.listen(process.env.PORT || 3000, (req, res) => {
   console.log("server is running");
 });
