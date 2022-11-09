@@ -15,9 +15,6 @@ const hbs = require("hbs");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-//static/css/style.css
-app.use("/static", express.static("backend/public"));
-
 //template engine
 app.set("view engine", "hbs");
 app.set("views", "backend/view-folder");
@@ -191,6 +188,9 @@ if (process.env.NODE_ENV == "production") {
   });
 } else {
   console.log("devlop-mode...........");
+  //static/css/style.css
+  app.use("/static", express.static("backend/public"));
+
   //using routes
   app.use("", routes);
 }
