@@ -184,11 +184,13 @@ routes.post("/callback", (req, res) => {
 // ...............deployment.................
 __dirname = path.resolve();
 if (process.env.NODE_ENV == "production") {
+  console.log("production-mode.......");
   app.use(express.static(path.join(__dirname, "frontend/build")));
   app.get("*", (req, res) => {
     res.sendFile(paht.resolve(__dirname, "frontend", "build", "index.html"));
   });
 } else {
+  console.log("devlop-mode...........");
   //using routes
   app.use("", routes);
 }
