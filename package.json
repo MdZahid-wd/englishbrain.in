@@ -1,7 +1,8 @@
 {
   "dependencies": {
     "concurrently": "^7.5.0",
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "dotenv": "^16.0.3"
   },
   "scripts": {
     "start": "nodemon backend/src/app.js",
