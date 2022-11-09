@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const checksum_lib = require("./paytm/checksum");
 const config = require("./paytm/config");
 const admin = require("./models/admin");
+const path = require("path");
 
 const app = express();
 const routes = require("./routers/main.js");
@@ -15,12 +16,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //static/css/style.css
-app.use("/static", express.static("public"));
+app.use("/static", express.static("backend/public"));
 
 //template engine
 app.set("view engine", "hbs");
-app.set("views", "view-folder");
-hbs.registerPartials("view-folder/partials");
+app.set("views", "backend/view-folder");
+hbs.registerPartials("backend/view-folder/partials");
 
 const mongodbUser = process.env.MONGODB_USER;
 const mongodbPassword = process.env.MONGODB_PASSWORD;
@@ -38,9 +39,6 @@ mongoose
   .catch((err) => {
     console.error(`unable to connect data base \n${err}`);
   });
-
-//using routes
-app.use("", routes);
 
 //payment
 routes.get("/paynow", (req, res) => {
@@ -183,6 +181,20 @@ routes.post("/callback", (req, res) => {
     );
   });
 });
-app.listen(process.env.PORT || 5000, (req, res) => {
+// ...............deployment.................
+__dirname = path.resolve();
+if (process.env.NODE_ENV == "production") {
+  app.use(express.static(path.join(__dirname, "frontend/build")));
+  app.get("*", (req, res) => {
+    res.sendFile(paht.resolve(__dirname, "frontend", "build", "index.html"));
+  });
+} else {
+  //using routes
+  app.use("", routes);
+}
+
+// ...............deployment.................
+
+app.listen(process.env.PORT, (req, res) => {
   console.log("server is running");
 });

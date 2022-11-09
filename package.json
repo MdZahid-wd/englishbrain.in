@@ -4,6 +4,23 @@
     "nodemon": "^2.0.20"
   },
   "scripts": {
-    "start": "concurrently \"cd frontend && npm start\" \"cd backend && npm start\""
-  }
+    "start": "nodemon backend/src/app.js",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm start\" \"npm run client\""
+  },
+  "name": "englishbrain.in",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MdZahid-wd/englishbrain.in.git"
+  },
+  "author": "md zahid",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MdZahid-wd/englishbrain.in/issues"
+  },
+  "homepage": "https://github.com/MdZahid-wd/englishbrain.in#readme",
+  "description": ""
 }
