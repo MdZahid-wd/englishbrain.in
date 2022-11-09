@@ -195,6 +195,6 @@ if (process.env.NODE_ENV == "production") {
 
 // ...............deployment.................
 
-app.listen(process.env.PORT, (req, res) => {
+app.listen(process.env.PORT || 5000, (req, res) => {
   console.log("server is running");
 });
