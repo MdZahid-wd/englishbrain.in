@@ -181,11 +181,16 @@ routes.post("api/callback", (req, res) => {
 // ...............deployment.................
 
 if (process.env.NODE_ENV == "production") {
-  console.log("production-mode.......bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
+  console.log(
+    "production-mode.......bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+  );
+  __dirname = path.resolve();
+  console.log(path.join(__dirname + "/frontend/build"));
+  console.log(path.resolve(__dirname, "frontend", "build", "index.html"));
 
-  app.use(express.static("frontend/build/"));
+  app.use(express.static(path.join(__dirname, "/frontend/build/")));
   app.get("*", (req, res) => {
-    res.sendFile("frontend/build/index.html");
+    res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
   });
 } else {
   console.log("devlop-mode...........");
