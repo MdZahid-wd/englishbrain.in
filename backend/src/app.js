@@ -6,11 +6,10 @@ const checksum_lib = require("./paytm/checksum");
 const config = require("./paytm/config");
 const admin = require("./models/admin");
 const path = require("path");
-
-const app = express();
 const routes = require("./routers/main.js");
 const hbs = require("hbs");
 
+const app = express();
 //parser
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -183,7 +182,7 @@ if (process.env.NODE_ENV == "production") {
   console.log("production-mode.......");
   console.log(__dirname + "/frontend/build/index.html");
   app.use(express.static(path.join(__dirname, "./frontend/build")));
-  app.get("*", (req, res) => {
+  app.get("/", (req, res) => {
     res.sendFile(__dirname + "./frontend/build/index.html");
   });
 } else {
