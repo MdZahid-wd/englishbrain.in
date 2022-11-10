@@ -179,16 +179,13 @@ routes.post("api/callback", (req, res) => {
   });
 });
 // ...............deployment.................
-__dirname = path.resolve();
+
 if (process.env.NODE_ENV == "production") {
-  console.log(
-    "production-mode.......aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-  );
-  console.log(path.join(__dirname + "/frontend/build"));
-  console.log(path.resolve(__dirname, "frontend", "build", "index.html"));
-  app.use(express.static(path.join(__dirname, "/frontend/build")));
+  console.log("production-mode.......bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
+
+  app.use(express.static("frontend/build/"));
   app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
+    res.sendFile("frontend/build/index.html");
   });
 } else {
   console.log("devlop-mode...........");
