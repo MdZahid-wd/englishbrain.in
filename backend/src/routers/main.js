@@ -167,7 +167,7 @@ async function loginPresent(req, res, next) {
   }
 }
 //index page...................................................................................................................................................................................................
-routes.get("/", loginPresent, async (req, res) => {
+routes.get("api/", loginPresent, async (req, res) => {
   try {
     const videos = await Videos.find();
     const course = await Course.find();
@@ -192,7 +192,7 @@ routes.get("/", loginPresent, async (req, res) => {
 });
 
 //student-login..........................................................................................................................................................................................
-routes.get("/student-login", loginPresent, async (req, res) => {
+routes.get("api/student-login", loginPresent, async (req, res) => {
   res.render("student-login", { loginLogoName: req.login });
 });
 routes.post("/student-login", async (req, res) => {
@@ -309,10 +309,10 @@ routes.post("/student-login", async (req, res) => {
 });
 //student register...................................................................................................................................................................
 
-routes.get("/student-register", async (req, res) => {
+routes.get("api/student-register", async (req, res) => {
   res.render("student-register");
 });
-routes.post("/courseafterresgistesr", async (req, res) => {
+routes.post("api/courseafterresgistesr", async (req, res) => {
   console.log("form is submitted");
   console.log(req.body.email);
   const data = await student.findOne({ email: req.body.email });
@@ -346,7 +346,7 @@ routes.post("/courseafterresgistesr", async (req, res) => {
 });
 
 //course information..............................................................................................................................................................
-routes.get("/course*", loginPresent, async (req, res) => {
+routes.get("api/course*", loginPresent, async (req, res) => {
   const orgUrl = req.url;
   const courseNum = orgUrl.slice(7);
   if (courseNum) {
@@ -415,16 +415,16 @@ routes.get("/course*", loginPresent, async (req, res) => {
   }
 });
 //contact page.....................................................................................................................................
-routes.get("/contactUs", loginPresent, (req, res) => {
+routes.get("api/contactUs", loginPresent, (req, res) => {
   res.render("contact-us", { loginLogoName: req.login });
 });
 //admin login .......................................................................................................................................
-routes.get("/adminLogin", (req, res) => {
+routes.get("api/adminLogin", (req, res) => {
   console.log(req.headers.authorization);
   res.render("admin-login", { loginLogoName: "login" });
 });
 
-routes.post("/adminUpdate", async (req, res) => {
+routes.post("api/adminUpdate", async (req, res) => {
   var pass = false;
   const data = await admin.findOne({ email: req.body.email });
   if (data == null) {
@@ -451,7 +451,7 @@ routes.post("/adminUpdate", async (req, res) => {
 });
 //video update.........................................................................................................................................................................................................
 
-routes.get("/videoUpdate", autha, async (req, res) => {
+routes.get("api/videoUpdate", autha, async (req, res) => {
   //console.log("this is from autha")
   //console.log(req.data);
   const demoVideo = await course.find({ courseNo: 1 });
@@ -524,7 +524,7 @@ const upload = multer({
 });
 
 routes.post(
-  "/adminVideoUpload",
+  "api/adminVideoUpload",
   upload.fields([
     { name: "videoFile", maxCount: 1 },
     { name: "imageFile", maxCount: 1 },
@@ -578,12 +578,12 @@ routes.post(
 );
 //Video player..............................................................................................................................................................
 
-routes.post("/result", async (req, res) => {
+routes.post("api/result", async (req, res) => {
   console.log(req.body);
   res.render("course");
 });
 
-routes.get("/playVideo", async (req, res) => {
+routes.get("api/playVideo", async (req, res) => {
   res.render("playVideo");
 });
 //video thumbnail....................................................................................................................................................................
@@ -616,7 +616,7 @@ routes.get("/playVideo", async (req, res) => {
 // });
 //delete object......................................................................................................................................................
 const s3ClientDelete = new S3Client({ region: "ap-south-1" });
-routes.get("/delete-video/*", async (req, res) => {
+routes.get("api/delete-video/*", async (req, res) => {
   const deleteUrl = req.url;
   const videoNo = Number(deleteUrl.slice(14));
   const videoLength = (await Videos.find()).length;
@@ -688,11 +688,11 @@ routes.get("/delete-video/*", async (req, res) => {
   res.render("success", { success: "successfully deleted refresh the page" });
 });
 //coping object from video to videoF.............................................................................................................................................................................................
-routes.get("/updateCourse", autha, (req, res) => {
+routes.get("api/updateCourse", autha, (req, res) => {
   res.render("admin-courseUpdate", { loginLogoName: req.data.name });
 });
 const s3copy = new S3Client({ region: "ap-south-1" });
-routes.post("/updateCourse", autha, async (req, res) => {
+routes.post("api/updateCourse", autha, async (req, res) => {
   var freeVideoArray = [];
   var copyVideoF = [];
   var k = 0;
@@ -814,7 +814,7 @@ routes.post("/updateCourse", autha, async (req, res) => {
     res.send("can't give permission more than 4");
   }
 });
-routes.get("/data", async (req, res) => {
+routes.get("api/data", async (req, res) => {
   const data = await Videos.find();
   res.send(data);
 });

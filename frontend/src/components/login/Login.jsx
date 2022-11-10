@@ -3,7 +3,6 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "./login.css";
 const Login = (props) => {
-  console.log(props);
   return (
     <>
       <section className="login-section" id="Login-section">

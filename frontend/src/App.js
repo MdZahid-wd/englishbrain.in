@@ -12,13 +12,13 @@ import Home from "./components/home/Home";
 import { useEffect } from "react";
 import axios from "axios";
 function App() {
-  const fetchApi = async () => {
-    const data = await axios.get("/data");
-    console.log(data);
-  };
-  useEffect(() => {
-    fetchApi();
-  }, []);
+  // const fetchApi = async () => {
+  //   const data = await axios.get("/api/data");
+  //   console.log(data);
+  // };
+  // useEffect(() => {
+  //   fetchApi();
+  // }, []);
   return (
     <>
       <BrowserRouter>

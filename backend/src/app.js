@@ -38,15 +38,15 @@ mongoose
   });
 
 //payment
-routes.get("/paynow", (req, res) => {
+routes.get("api/paynow", (req, res) => {
   res.render("payInfo", { courseNo: req.body.courseNo });
 });
-routes.post("/paynow", (req, res) => {
+routes.post("api/paynow", (req, res) => {
   console.log(req.body.courseNo);
   res.render("payInfo", { courseNo: req.body.courseNo });
 });
 
-routes.post("/payInfo", (req, res) => {
+routes.post("api/payInfo", (req, res) => {
   // Route for making payment
 
   var paymentDetails = {
@@ -104,7 +104,7 @@ routes.post("/payInfo", (req, res) => {
     );
   }
 });
-routes.post("/callback", (req, res) => {
+routes.post("api/callback", (req, res) => {
   // Route for verifiying payment
 
   var body = "";
@@ -192,7 +192,7 @@ if (process.env.NODE_ENV == "production") {
   app.use("/static", express.static("backend/public"));
 
   //using routes
-  app.use("", routes);
+  app.use("/api/*", routes);
 }
 
 // ...............deployment.................

@@ -2,6 +2,11 @@ import React from "react";
 import { useState } from "react";
 import Login from "../../login/Login";
 
+document.body.addEventListener("click", function (e) {
+  if (!document.querySelector(".login-section")) {
+    console.log("zzzzzzzzzzzzzz");
+  }
+});
 const Head = () => {
   console.log("checked head");
   const [login, setLogin] = useState(false);
@@ -11,15 +16,6 @@ const Head = () => {
       setLogin(true);
     }
   }
-  document.body.addEventListener("click", function (e) {
-    let a = e.target.classList.value;
-    let b = document.getElementsByClassName(a);
-    if (b == document.getElementsByClassName("login-section")) {
-      console.log("section");
-    }
-
-    console.log(a, b);
-  });
 
   return (
     <>
