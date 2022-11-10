@@ -47,8 +47,25 @@ header ul li a:hover {
 }
 /*--------header------------*/
 @media screen and (max-width: 768px) {
+  .logo {
+    margin-left: 0;
+  }
+  .logo h1 {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0;
+  }
+  .logo span {
+    font-size: 11px;
+    font-weight: 500;
+  }
   .start {
     clip-path: none;
+    padding: 20px 11px;
+  }
+  .head {
+    padding: 10px 0;
+    color: #fff;
   }
   header {
     margin: 0;
@@ -65,11 +82,12 @@ header ul li a:hover {
     display: block;
     background: none;
     color: #fff;
-    font-size: 30px;
+    font-size: 20px;
     position: absolute;
-    right: 0;
+    right: 0px;
     top: -20px;
   }
+
   .mobile-nav {
     position: absolute;
     top: 7vh;

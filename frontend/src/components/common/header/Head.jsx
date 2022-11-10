@@ -14,6 +14,8 @@ const Head = () => {
     console.log("clicked");
     if (!login) {
       setLogin(true);
+    } else {
+      setLogin(false);
     }
   }
 
