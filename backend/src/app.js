@@ -182,9 +182,9 @@ routes.post("api/callback", (req, res) => {
 __dirname = path.resolve();
 if (process.env.NODE_ENV == "production") {
   console.log("production-mode.......");
-  console.log(path.join(__dirname + "frontend/build"));
+  console.log(path.join(__dirname + "/frontend/build"));
   console.log(path.resolve(__dirname, "frontend", "build", "index.html"));
-  app.use(express.static(path.join(__dirname, "frontend/build")));
+  app.use(express.static(path.join(__dirname, "/frontend/build")));
   app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
   });
