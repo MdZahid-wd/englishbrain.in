@@ -17,7 +17,7 @@
     "paytmchecksum": "^1.5.0"
   },
   "scripts": {
-    "start": "nodemon backend/src/app.js",
+    "start": "npm run build --prefix frontend && nodemon backend/src/app.js",
     "client": "npm start --prefix frontend",
     "dev": "concurrently \"npm start\" \"npm run client\""
   },
