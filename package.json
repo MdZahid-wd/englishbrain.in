@@ -18,6 +18,7 @@
   },
   "scripts": {
     "start": "nodemon backend/src/app.js",
+    "build": "cd frontend && npm run build",
     "client": "npm start --prefix frontend",
     "dev": "concurrently \"npm start\" \"npm run client\""
   },
