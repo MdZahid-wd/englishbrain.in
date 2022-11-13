@@ -185,8 +185,6 @@ if (process.env.NODE_ENV == "production") {
     "production-mode.......bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
   );
   __dirname = path.resolve();
-  console.log(path.join(__dirname + "/frontend/build"));
-  console.log(path.resolve(__dirname, "frontend", "build", "index.html"));
 
   app.use(express.static(path.join(__dirname, "/frontend/build/")));
   app.get("*", (req, res) => {
