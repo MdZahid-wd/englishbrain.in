@@ -1,6 +1,6 @@
 import "./App.css";
 import Header from "./components/common/header/Header";
-import { BrowserRouter, Switch, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import About from "./components/about/About";
 import CourseHome from "./components/allcourses/CourseHome";
 import Team from "./components/team/Team";
@@ -9,16 +9,8 @@ import Blog from "./components/blog/Blog";
 import Contact from "./components/contact/Contact";
 import Footer from "./components/common/footer/Footer";
 import Home from "./components/home/Home";
-import { useEffect } from "react";
-import axios from "axios";
+
 function App() {
-  // const fetchApi = async () => {
-  //   const data = await axios.get("/api/data");
-  //   console.log(data);
-  // };
-  // useEffect(() => {
-  //   fetchApi();
-  // }, []);
   return (
     <>
       <BrowserRouter>

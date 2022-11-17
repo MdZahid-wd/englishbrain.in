@@ -167,7 +167,7 @@ async function loginPresent(req, res, next) {
   }
 }
 //index page...................................................................................................................................................................................................
-routes.get("api/", loginPresent, async (req, res) => {
+routes.get("/", loginPresent, async (req, res) => {
   try {
     const videos = await Videos.find();
     const course = await Course.find();
@@ -195,7 +195,7 @@ routes.get("api/", loginPresent, async (req, res) => {
 routes.get("api/student-login", loginPresent, async (req, res) => {
   res.render("student-login", { loginLogoName: req.login });
 });
-routes.post("/student-login", async (req, res) => {
+routes.post("api/student-login", async (req, res) => {
   try {
     const data = await student.findOne({ email: req.body.email });
 
@@ -346,7 +346,7 @@ routes.post("api/courseafterresgistesr", async (req, res) => {
 });
 
 //course information..............................................................................................................................................................
-routes.get("api/course*", loginPresent, async (req, res) => {
+routes.get("/course*", loginPresent, async (req, res) => {
   const orgUrl = req.url;
   const courseNum = orgUrl.slice(7);
   if (courseNum) {
@@ -814,9 +814,46 @@ routes.post("api/updateCourse", autha, async (req, res) => {
     res.send("can't give permission more than 4");
   }
 });
-routes.get("api/data", async (req, res) => {
-  const data = await Videos.find();
-  res.send(data);
+routes.post("/api/login", async (req, res) => {
+  console.log(req.body);
+  try {
+    const data = await student.findOne({ email: req.body.email });
+    if (data == null) {
+      res.send({ email: "invalid email" });
+      console.log("email does't exist");
+    } else {
+      if (data.password1 == req.body.password) {
+        console.log("verify");
+        //jwt token
+        const user = { id: data._id };
+        const token = jwt.sign(user, process.env.JWT_SECRET_KEY, {
+          expiresIn: "12h",
+        });
+        console.log("........ttttttttt.......");
+        console.log(token);
+        console.log("........ttttttttt.......");
+        console.log(user);
+
+        res.cookie("jwts", token, [
+          {
+            expires: new Date(Date.now() + 60 * 60 * 1000 * 12),
+            httpOnly: true,
+          },
+        ]);
+        //jwt token
+        res.send({ name: data.name });
+      } else {
+        console.log("password dont match");
+        res.send({ email: "invalid email" });
+      }
+    }
+  } catch (e) {
+    console.log(e);
+  }
+});
+routes.get("/api/jwt", loginPresent, (req, res) => {
+  console.log(req.login);
+  res.send({ login: req.login });
 });
 
 module.exports = routes;

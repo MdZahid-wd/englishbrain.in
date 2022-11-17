@@ -2,8 +2,24 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Head from "./Head";
 import "./header.css";
+import { useEffect } from "react";
+import axios from "axios";
 
 const Header = () => {
+  const fetchJWT = async () => {
+    const { data } = await axios.get("/api/jwt");
+    if (data.login == "login") {
+    } else {
+      document.getElementById("login-name-id").innerHTML = data.login;
+    }
+
+    console.log(data);
+  };
+  useEffect(() => {
+    //Runs only on the first render
+    fetchJWT();
+  }, []);
+
   const [click, setClick] = useState(false);
 
   return (
@@ -38,7 +54,7 @@ const Header = () => {
             </li>
           </ul>
           <div className="start">
-            <div className="button">GET CERTIFICATE</div>
+            <div className="button">Dashboard</div>
           </div>
           <button className="toggle" onClick={() => setClick(!click)}>
             {click ? (

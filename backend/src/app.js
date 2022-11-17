@@ -6,11 +6,13 @@ const checksum_lib = require("./paytm/checksum");
 const config = require("./paytm/config");
 const admin = require("./models/admin");
 const path = require("path");
-
-const app = express();
 const routes = require("./routers/main.js");
 const hbs = require("hbs");
 
+const app = express();
+
+//static/css/style.css
+app.use("/static", express.static("backend/public"));
 //parser
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -181,9 +183,7 @@ routes.post("api/callback", (req, res) => {
 // ...............deployment.................
 
 if (process.env.NODE_ENV == "production") {
-  console.log(
-    "production-mode.......bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
-  );
+  console.log("production-modezzzzzzzzzzzzzzzzzzzzzz");
   __dirname = path.resolve();
 
   app.use(express.static(path.join(__dirname, "/frontend/build/")));
@@ -191,12 +191,8 @@ if (process.env.NODE_ENV == "production") {
     res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
   });
 } else {
-  console.log("devlop-mode...........");
-  //static/css/style.css
-  app.use("/static", express.static("backend/public"));
-
-  //using routes
-  app.use("api/", routes);
+  console.log("devloper-modezzzzzzzzzzzzzzzzzzzzzz");
+  app.use("", routes);
 }
 
 // ...............deployment.................
