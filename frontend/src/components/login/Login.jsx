@@ -15,9 +15,12 @@ const Login = () => {
   const submitHandler = async (ev) => {
     ev.preventDefault();
     try {
-      console.log(email, password);
+      console.log(email, password, "before sending");
       // setLoading(true);
-      const { data } = await axios.post("/api/login", { email, password });
+      const { data } = await axios.post("/api/login", {
+        email: email,
+        password: password,
+      });
       // localStorage.setItem("userInfo", JSON.stringify(data));
       console.log(data.name.split(" ")[0]);
       if (data.name) {
@@ -25,7 +28,7 @@ const Login = () => {
           data.name.split(" ")[0];
       }
     } catch (e) {
-      console.log(e);
+      console.log(e, "during sending login form ");
       // setError(error.response.data.message);
     }
   };

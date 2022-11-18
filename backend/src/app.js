@@ -11,12 +11,11 @@ const hbs = require("hbs");
 
 const app = express();
 
-//static/css/style.css
-app.use("/static", express.static("backend/public"));
 //parser
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+//static/css/style.css
+app.use("/static", express.static("backend/public"));
 //template engine
 app.set("view engine", "hbs");
 app.set("views", "backend/view-folder");
@@ -185,13 +184,15 @@ routes.post("api/callback", (req, res) => {
 if (process.env.NODE_ENV == "production") {
   console.log("production-modezzzzzzzzzzzzzzzzzzzzzz");
   __dirname = path.resolve();
-
+  app.use("", routes);
   app.use(express.static(path.join(__dirname, "/frontend/build/")));
-  app.get("*", (req, res) => {
+  app.get("", (req, res) => {
     res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
   });
 } else {
   console.log("devloper-modezzzzzzzzzzzzzzzzzzzzzz");
+  //static/css/style.css
+  app.use("/static", express.static("backend/public"));
   app.use("", routes);
 }
 

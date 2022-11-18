@@ -167,7 +167,7 @@ async function loginPresent(req, res, next) {
   }
 }
 //index page...................................................................................................................................................................................................
-routes.get("/", loginPresent, async (req, res) => {
+routes.get("api/", loginPresent, async (req, res) => {
   try {
     const videos = await Videos.find();
     const course = await Course.find();
@@ -346,7 +346,7 @@ routes.post("api/courseafterresgistesr", async (req, res) => {
 });
 
 //course information..............................................................................................................................................................
-routes.get("/course*", loginPresent, async (req, res) => {
+routes.get("api/course*", loginPresent, async (req, res) => {
   const orgUrl = req.url;
   const courseNum = orgUrl.slice(7);
   if (courseNum) {
@@ -815,6 +815,7 @@ routes.post("api/updateCourse", autha, async (req, res) => {
   }
 });
 routes.post("/api/login", async (req, res) => {
+  console.log("api/login is running");
   console.log(req.body);
   try {
     const data = await student.findOne({ email: req.body.email });
