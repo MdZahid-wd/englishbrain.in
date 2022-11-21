@@ -346,9 +346,9 @@ routes.post("api/courseafterresgistesr", async (req, res) => {
 });
 
 //course information..............................................................................................................................................................
-routes.get("api/course*", loginPresent, async (req, res) => {
+routes.post("/api/course", loginPresent, async (req, res) => {
   const orgUrl = req.url;
-  const courseNum = orgUrl.slice(7);
+  const courseNum = 1;
   if (courseNum) {
     try {
       const course = await Course.findOne({ courseNo: courseNum });
@@ -357,25 +357,75 @@ routes.get("api/course*", loginPresent, async (req, res) => {
       var videosArrays = [];
       var istSrc;
       var istTitle;
+      var secondSrc;
       var k = 0;
       for (i = 0; i < course.demoVideos.length; i++) {
         const Video = await Videos.findOne({ video: course.demoVideos[i] });
         if (k == 0) {
+          let videoKey = Video.videoFile[0].originalname.split(".")[0];
           videosArrays[k] = {
             title: Video.title,
             videoNo: Video.video,
-            videoKey: Video.videoFile[0].originalname.split(".")[0],
+            videoKey: videoKey,
+            videoIstSrc:
+              "https://files.englishbrain.in/videos/video/" +
+              videoKey +
+              "/MP4/" +
+              videoKey +
+              ".mp4",
+            videoSecondSrc:
+              "https://files.englishbrain.in/videos/videoF/" +
+              videoKey +
+              "/MP4/" +
+              videoKey +
+              ".mp4",
+            posterSrc:
+              "https://files.englishbrain.in/videos/video/" +
+              videoKey +
+              "/Thumbnails/" +
+              videoKey +
+              ".0000000.jpg",
             thumbnailKey: Video.imageFile[0].originalname.split(".")[0],
             active: "active",
           };
-          istSrc = Video.videoFile[0].originalname.split(".")[0];
+          istSrc =
+            "https://files.englishbrain.in/videos/video/" +
+            videoKey +
+            "/MP4/" +
+            videoKey +
+            ".mp4";
+          secondSrc =
+            "https://files.englishbrain.in/videos/videoF/" +
+            videoKey +
+            "/MP4/" +
+            videoKey +
+            ".mp4";
           istTitle = Video.title;
           k++;
         } else {
+          let videoKey = Video.videoFile[0].originalname.split(".")[0];
           videosArrays[k] = {
             title: Video.title,
             videoNo: Video.video,
             videoKey: Video.videoFile[0].originalname.split(".")[0],
+            videoIstSrc:
+              "https://files.englishbrain.in/videos/video/" +
+              videoKey +
+              "/MP4/" +
+              videoKey +
+              ".mp4",
+            videoSecondSrc:
+              "https://files.englishbrain.in/videos/videoF/" +
+              videoKey +
+              "/MP4/" +
+              videoKey +
+              ".mp4",
+            posterSrc:
+              "https://files.englishbrain.in/videos/video/" +
+              videoKey +
+              "/Thumbnails/" +
+              videoKey +
+              ".0000000.jpg",
             thumbnailKey: Video.imageFile[0].originalname.split(".")[0],
           };
           k++;
@@ -389,22 +439,52 @@ routes.get("api/course*", loginPresent, async (req, res) => {
           const VideoRest = await Videos.findOne({ video: i + 1 });
           if (VideoRest == null) {
           } else {
+            let videoKey = VideoRest.videoFile[0].originalname.split(".")[0];
             videosArrays[k] = {
               title: VideoRest.title,
               videoNo: VideoRest.video,
-              videoKey: VideoRest.videoFile[0].originalname.split(".")[0],
+              videoKey: videoKey,
+              videoIstSrc:
+                "https://files.englishbrain.in/videos/video/" +
+                videoKey +
+                "/MP4/" +
+                videoKey +
+                ".mp4",
+              videoSecondSrc:
+                "https://files.englishbrain.in/videos/videoF/" +
+                videoKey +
+                "/MP4/" +
+                videoKey +
+                ".mp4",
+              posterSrc:
+                "https://files.englishbrain.in/videos/video/" +
+                videoKey +
+                "/Thumbnails/" +
+                videoKey +
+                ".0000000.jpg",
               thumbnailKey: VideoRest.imageFile[0].originalname.split(".")[0],
             };
             k++;
           }
         }
       }
-      res.render("course", {
+      console.log({
+        totalDemoVideo: course.demoVideos.length,
+        totalVideo: videos.length,
+        loginLogoName: req.login,
+        istVideoSrc: istSrc,
+        secondVideoSrc: secondSrc,
+        istVideoTitle: istTitle,
+        courseNo: courseNum,
+        videos: videosArrays,
+      });
+      res.send({
         totalDemoVideo: course.demoVideos.length,
         totalVideo: videos.length,
         loginLogoName: req.login,
         videos: videosArrays,
         istVideoSrc: istSrc,
+        secondVideoSrc: secondSrc,
         istVideoTitle: istTitle,
         courseNo: courseNum,
       });
@@ -814,13 +894,14 @@ routes.post("api/updateCourse", autha, async (req, res) => {
     res.send("can't give permission more than 4");
   }
 });
+//api login/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 routes.post("/api/login", async (req, res) => {
   console.log("api/login is running");
   console.log(req.body);
   try {
     const data = await student.findOne({ email: req.body.email });
     if (data == null) {
-      res.send({ email: "invalid email" });
+      res.send("invalid email");
       console.log("email does't exist");
     } else {
       if (data.password1 == req.body.password) {
@@ -842,19 +923,200 @@ routes.post("/api/login", async (req, res) => {
           },
         ]);
         //jwt token
+        //cloudfront token
+        const privateKey =
+          process.env.A +
+          "\n" +
+          process.env.B +
+          process.env.C +
+          process.env.D +
+          process.env.E +
+          process.env.F +
+          process.env.G +
+          process.env.H +
+          process.env.I +
+          process.env.J +
+          process.env.K +
+          process.env.L +
+          process.env.M +
+          process.env.N +
+          "\n" +
+          process.env.O;
+
+        const cloudFront = new aws.CloudFront.Signer(
+          process.env.KEY_PAIR_ID,
+          privateKey
+        );
+
+        const policy = JSON.stringify({
+          Statement: [
+            {
+              Resource: "https://files.englishbrain.in/*", // http* => http and https
+              Condition: {
+                DateLessThan: {
+                  "AWS:EpochTime":
+                    Math.floor(new Date().getTime() / 1000) + 60 * 60 * 12, // Current Time in UTC + time in seconds, (60 * 60 * 12 = 12 hrs)
+                },
+              },
+            },
+          ],
+        });
+
+        const cookie = cloudFront.getSignedCookie({
+          policy,
+        });
+        console.log(cookie);
+        console.log(Object.values(cookie)[1]);
+        console.log(Object.values(cookie)[0]);
+        console.log(Object.values(cookie)[2]);
+
+        res.cookie("CloudFront-Key-Pair-Id", Object.values(cookie)[1], {
+          domain: ".englishbrain.in",
+          path: "/",
+          httpOnly: true,
+          secure: true,
+        });
+
+        res.cookie("CloudFront-Policy", Object.values(cookie)[0], {
+          domain: ".englishbrain.in",
+          path: "/",
+          httpOnly: true,
+          secure: true,
+        });
+
+        res.cookie("CloudFront-Signature", Object.values(cookie)[2], {
+          domain: ".englishbrain.in",
+          path: "/",
+          httpOnly: true,
+          secure: true,
+        });
+
+        //cloudfront token
         res.send({ name: data.name });
       } else {
         console.log("password dont match");
-        res.send({ email: "invalid email" });
+        res.send("invalid email");
       }
     }
   } catch (e) {
     console.log(e);
   }
 });
+//api jwt//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 routes.get("/api/jwt", loginPresent, (req, res) => {
   console.log(req.login);
   res.send({ login: req.login });
 });
+//register//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+routes.post("/api/register", async (req, res) => {
+  console.log(req.body);
+  const data = await student.findOne({ email: req.body.email });
+  if (data == null) {
+    if (req.body.password1 == req.body.password2) {
+      try {
+        const { data } = await student.create(req.body);
+        console.log(data);
+        //jwt token
+        const user = { id: data._id };
+        const token = jwt.sign(user, process.env.JWT_SECRET_KEY, {
+          expiresIn: "12h",
+        });
+        console.log("........ttttttttt.......");
+        console.log(token);
+        console.log("........ttttttttt.......");
+        console.log(user);
+
+        res.cookie("jwts", token, [
+          {
+            expires: new Date(Date.now() + 60 * 60 * 1000 * 12),
+            httpOnly: true,
+          },
+        ]);
+        //jwt token
+        //cloudfront token
+        const privateKey =
+          process.env.A +
+          "\n" +
+          process.env.B +
+          process.env.C +
+          process.env.D +
+          process.env.E +
+          process.env.F +
+          process.env.G +
+          process.env.H +
+          process.env.I +
+          process.env.J +
+          process.env.K +
+          process.env.L +
+          process.env.M +
+          process.env.N +
+          "\n" +
+          process.env.O;
+
+        const cloudFront = new aws.CloudFront.Signer(
+          process.env.KEY_PAIR_ID,
+          privateKey
+        );
+
+        const policy = JSON.stringify({
+          Statement: [
+            {
+              Resource: "https://files.englishbrain.in/*", // http* => http and https
+              Condition: {
+                DateLessThan: {
+                  "AWS:EpochTime":
+                    Math.floor(new Date().getTime() / 1000) + 60 * 60 * 12, // Current Time in UTC + time in seconds, (60 * 60 * 12 = 12 hrs)
+                },
+              },
+            },
+          ],
+        });
+
+        const cookie = cloudFront.getSignedCookie({
+          policy,
+        });
+        console.log(cookie);
+        console.log(Object.values(cookie)[1]);
+        console.log(Object.values(cookie)[0]);
+        console.log(Object.values(cookie)[2]);
+
+        res.cookie("CloudFront-Key-Pair-Id", Object.values(cookie)[1], {
+          domain: ".englishbrain.in",
+          path: "/",
+          httpOnly: true,
+          secure: true,
+        });
+
+        res.cookie("CloudFront-Policy", Object.values(cookie)[0], {
+          domain: ".englishbrain.in",
+          path: "/",
+          httpOnly: true,
+          secure: true,
+        });
+
+        res.cookie("CloudFront-Signature", Object.values(cookie)[2], {
+          domain: ".englishbrain.in",
+          path: "/",
+          httpOnly: true,
+          secure: true,
+        });
+
+        //cloudfront token
+        res.send({ name: data.name });
+      } catch (e) {
+        console.log(e);
+        res.send("fail");
+      }
+    } else {
+      res.send("password not matching");
+    }
+  } else {
+    if (data.email == req.body.email) {
+      res.send("you are already register");
+      console.log("email already exist");
+    }
+  }
+});
+//api course///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 module.exports = routes;

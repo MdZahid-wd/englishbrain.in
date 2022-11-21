@@ -11,3 +11,11 @@
   text-align: center;
   color: rgba(87, 80, 80, 0.568);
 }
+#forgot-anchor {
+  display: block;
+  margin: auto;
+  color: rgba(0, 0, 255, 0.353);
+}
+#forgot-anchor:hover {
+  color: blue;
+}

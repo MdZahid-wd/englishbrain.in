@@ -1,0 +1,139 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap");
+
+* {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+  text-decoration: none;
+  text-transform: capitalize;
+}
+
+.play-video-container {
+  max-width: 1200px;
+  margin: 60px auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.main-video-container {
+  flex: 1 1 700px;
+  border-radius: 5px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  padding: 15px;
+}
+
+.main-video {
+  margin-bottom: 7px;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.main-vid-title {
+  font-size: 20px;
+  color: #444;
+}
+
+.video-list-container {
+  flex: 1 1 350px;
+  height: 485px;
+  overflow-y: scroll;
+  border-radius: 5px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  padding: 15px;
+}
+
+.video-list-container::-webkit-scrollbar {
+  width: 10px;
+}
+
+.video-list-container::-webkit-scrollbar-track {
+  background-color: #fff;
+  border-radius: 5px;
+}
+
+.video-list-container::-webkit-scrollbar-thumb {
+  background-color: #444;
+  border-radius: 5px;
+}
+
+.video-list-container .list {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 10px;
+  background-color: #eee;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.video-list-container .list:last-child {
+  margin-bottom: 0;
+}
+
+.video-list-container .list.active {
+  background-color: #444;
+}
+
+.video-list-container .list.active .list-title {
+  color: #fff;
+}
+
+.video-list-container .list .list-video {
+  width: 100px;
+  border-radius: 5px;
+}
+
+.video-list-container .list .list-title {
+  font-size: 17px;
+  color: #444;
+}
+
+@media (max-width: 1200px) {
+  .play-video-container {
+    margin: 0;
+  }
+}
+
+@media (max-width: 500px) {
+  .main-video {
+    margin-bottom: 0;
+  }
+  .main-video-container {
+    padding: 10px;
+  }
+  .video-list-container {
+    max-height: 55vh;
+  }
+}
+.payed-anchor {
+  position: absolute;
+  left: 25px;
+  color: rgb(101, 135, 174);
+  padding: 10px;
+  background-color: #09090900;
+}
+#pay-button-div {
+  position: absolute;
+  top: 100vh;
+  width: 100%;
+}
+
+.courseUpdate-demoVideo-section {
+  background-color: rgba(163, 101, 221, 0.61);
+  margin: 30px;
+}
+.courseUpdate-newMember-section {
+  background-color: rgba(150, 234, 212, 0.325);
+}
+.courseUpdate-course-section {
+  margin: 5%;
+}

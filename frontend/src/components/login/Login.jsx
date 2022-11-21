@@ -14,6 +14,7 @@ const Login = () => {
 
   const submitHandler = async (ev) => {
     ev.preventDefault();
+
     try {
       console.log(email, password, "before sending");
       // setLoading(true);
@@ -22,10 +23,13 @@ const Login = () => {
         password: password,
       });
       // localStorage.setItem("userInfo", JSON.stringify(data));
-      console.log(data.name.split(" ")[0]);
       if (data.name) {
         document.getElementById("login-name-id").innerHTML =
           data.name.split(" ")[0];
+        document.getElementById("Login-icon").click();
+      } else {
+        console.log(data, "working");
+        document.getElementById("message-paragraph").innerHTML = data;
       }
     } catch (e) {
       console.log(e, "during sending login form ");
@@ -45,6 +49,7 @@ const Login = () => {
       <>
         <section className="login-section rst">
           <h2 className="rst">Login</h2>
+          <p className="rst" id="message-paragraph"></p>
           <Form onSubmit={submitHandler} className="rst">
             <Form.Group className="mb-1 rst" controlId="formBasicEmail">
               <Form.Label className="rst">Email address</Form.Label>
@@ -54,6 +59,7 @@ const Login = () => {
                 placeholder="Enter email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                required
               />
               <Form.Text className="text-muted rst">
                 We'll never share your email with anyone else.
@@ -67,8 +73,14 @@ const Login = () => {
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                required
               />
             </Form.Group>
+
+            <button className="rst" id="forgot-anchor">
+              forgot password
+            </button>
+
             <Button className="rst" variant="primary" type="submit">
               login
             </Button>

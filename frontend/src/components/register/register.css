@@ -11,3 +11,8 @@
   text-align: center;
   color: rgba(87, 80, 80, 0.568);
 }
+#message-paragraph {
+  color: red;
+  margin: 0;
+  text-align: center;
+}

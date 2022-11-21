@@ -54,7 +54,9 @@ const Header = () => {
             </li>
           </ul>
           <div className="start">
-            <div className="button">Dashboard</div>
+            <div id="dashboard-button" className="button">
+              dashboard
+            </div>
           </div>
           <button className="toggle" onClick={() => setClick(!click)}>
             {click ? (

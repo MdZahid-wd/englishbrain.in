@@ -1,6 +1,9 @@
 import React from "react";
 import Heading from "../../common/heading/Heading";
 import "./Hero.css";
+function viewCourseClick() {
+  console.log("view clicked");
+}
 
 const Hero = () => {
   return (

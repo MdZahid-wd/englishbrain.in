@@ -34,6 +34,7 @@ const Head = (props) => {
 
           <div className="social">
             <i
+              id="Login-icon"
               onClick={() => loginHandler()}
               class="fa-regular fa-user icon rst"
             >
