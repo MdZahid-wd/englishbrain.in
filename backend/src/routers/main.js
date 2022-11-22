@@ -347,10 +347,10 @@ routes.post("api/courseafterresgistesr", async (req, res) => {
 
 //course information..............................................................................................................................................................
 routes.post("/api/course", loginPresent, async (req, res) => {
-  const orgUrl = req.url;
   const courseNum = 1;
-  if (courseNum) {
-    try {
+
+  try {
+    if (courseNum) {
       const course = await Course.findOne({ courseNo: courseNum });
       const videos = await Videos.find();
 
@@ -490,10 +490,10 @@ routes.post("/api/course", loginPresent, async (req, res) => {
         istVideoTitle: istTitle,
         courseNo: courseNum,
       });
-    } catch (e) {
-      console.log("some wrong url", e);
+    } else {
     }
-  } else {
+  } catch (e) {
+    console.log("some wrong url", e);
   }
 });
 //contact page.....................................................................................................................................

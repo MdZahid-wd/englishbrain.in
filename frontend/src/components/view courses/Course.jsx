@@ -4,7 +4,8 @@ import "./course.css";
 import { useState } from "react";
 import { useEffect } from "react";
 
-const Course = () => {
+const Course = (props) => {
+  console.log(props.courseName);
   function fd(event) {
     let videoList = document.querySelectorAll(".video-list-container .list");
 
@@ -47,7 +48,9 @@ const Course = () => {
   // }
   var [datas, setDatas] = useState();
   const a = async () => {
-    const { data } = await axios.post("/api/course", { course: 1 });
+    const { data } = await axios.post("/api/course", {
+      courseName: props.courseName,
+    });
     console.log("fetch course is runnig");
     console.log(data);
     if (datas == null) {
@@ -57,7 +60,7 @@ const Course = () => {
   useEffect(() => {
     //Runs only on the first render
     a();
-  }, []);
+  });
 
   if (datas) {
     return (
@@ -66,6 +69,7 @@ const Course = () => {
           <section className="play-video-section">
             <div className="play-video-container">
               <div className="main-video-container">
+                <h3>{props.courseName}</h3>
                 <video
                   id="main-video-div"
                   controls

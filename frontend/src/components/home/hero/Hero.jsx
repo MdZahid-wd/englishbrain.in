@@ -1,9 +1,6 @@
 import React from "react";
 import Heading from "../../common/heading/Heading";
 import "./Hero.css";
-function viewCourseClick() {
-  console.log("view clicked");
-}
 
 const Hero = () => {
   return (
@@ -20,14 +17,14 @@ const Hero = () => {
               Vokalia and Consonantia, there live the blind texts.
             </p>
             <div className="button">
-              <button className="primary-btn">
+              {/* <button className="primary-btn">
                 GET STARTED NOW{" "}
                 <i className="fa fa-long-arrow-alt-right arrow-icon"></i>
               </button>
 
               <button className="viewCourse-button">
                 VIEW COURSE <i className="fa fa-long-arrow-alt-right"></i>
-              </button>
+              </button> */}
             </div>
           </div>
         </div>

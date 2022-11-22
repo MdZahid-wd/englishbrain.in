@@ -6,6 +6,9 @@ import { useEffect } from "react";
 import axios from "axios";
 
 const Header = () => {
+  function viewClick() {
+    console.log("view click");
+  }
   const fetchJWT = async () => {
     const { data } = await axios.get("/api/jwt");
     if (data.login == "login") {
@@ -35,7 +38,7 @@ const Header = () => {
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="courses">All Courses</Link>
+              <Link to="/courses">All Courses</Link>
             </li>
             <li>
               <Link to="/about">About</Link>
@@ -54,7 +57,7 @@ const Header = () => {
             </li>
           </ul>
           <div className="start">
-            <div id="dashboard-button" className="button">
+            <div onClick={viewClick} id="dashboard-button" className="button">
               dashboard
             </div>
           </div>

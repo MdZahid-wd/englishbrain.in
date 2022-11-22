@@ -27,9 +27,9 @@ const Head = (props) => {
           <div className="logo">
             <h1>
               <img src="./images/logo-modified.png" alt="logo" />
-              ALI'S RADIANT
+              ALI'S <span>RADIANT</span>
             </h1>
-            <span>ONLINE EDUCATION & LEARNING</span>
+            <h2>ONLINE EDUCATION & LEARNING</h2>
           </div>
 
           <div className="social">

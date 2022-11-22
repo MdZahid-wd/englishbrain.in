@@ -1,11 +1,13 @@
 import React from "react";
 import "./courses.css";
 import { coursesCard } from "../../dummydata";
+import Heading from "../common/heading/Heading";
 
 const CoursesCard = () => {
   return (
     <>
       <section className="coursesCard">
+        <Heading subtitle="COURSES" title="Browse More Courses" />
         <div className="container grid2">
           {coursesCard.map((val) => (
             <div className="items">

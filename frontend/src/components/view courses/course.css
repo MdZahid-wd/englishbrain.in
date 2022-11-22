@@ -59,7 +59,7 @@
 }
 
 .video-list-container::-webkit-scrollbar-thumb {
-  background-color: #444;
+  background-color: #1eb2a6;
   border-radius: 5px;
 }
 
@@ -80,7 +80,7 @@
 }
 
 .video-list-container .list.active {
-  background-color: #444;
+  background-color: #1eb2a6;
 }
 
 .video-list-container .list.active .list-title {

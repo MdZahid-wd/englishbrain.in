@@ -5,13 +5,11 @@ import HAbout from "./HAbout";
 import Hero from "./hero/Hero";
 import Hprice from "./Hprice";
 import Testimonal from "./testimonal/Testimonal";
-import Course from ".././view courses/Course";
 
 const Home = () => {
   return (
     <>
       <Hero />
-      <Course></Course>
       <AboutCard />
       <HAbout />
       <Testimonal />
