@@ -386,7 +386,7 @@ routes.post("/api/course", loginPresent, async (req, res) => {
               videoKey +
               ".0000000.jpg",
             thumbnailKey: Video.imageFile[0].originalname.split(".")[0],
-            active: "active",
+            active: "active list",
           };
           istSrc =
             "https://files.englishbrain.in/videos/video/" +
@@ -427,6 +427,7 @@ routes.post("/api/course", loginPresent, async (req, res) => {
               videoKey +
               ".0000000.jpg",
             thumbnailKey: Video.imageFile[0].originalname.split(".")[0],
+            active: "list",
           };
           k++;
         }
@@ -463,6 +464,7 @@ routes.post("/api/course", loginPresent, async (req, res) => {
                 videoKey +
                 ".0000000.jpg",
               thumbnailKey: VideoRest.imageFile[0].originalname.split(".")[0],
+              active: "list",
             };
             k++;
           }

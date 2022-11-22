@@ -5,6 +5,46 @@ import { useState } from "react";
 import { useEffect } from "react";
 
 const Course = () => {
+  function fd(event) {
+    let videoList = document.querySelectorAll(".video-list-container .list");
+
+    videoList.forEach((vid) => {
+      vid.classList.remove("active");
+    });
+    event.currentTarget.classList.add("active");
+    let src1 = event.currentTarget.querySelector(".list-video .istSrc").src;
+    let src2 = event.currentTarget.querySelector(".list-video .secondSrc").src;
+    let title = event.currentTarget.querySelector(".list-title").innerHTML;
+    console.log(src1, src2, title);
+    document.querySelector(".main-video-container .main-video .istSrc").src =
+      src1;
+    document.querySelector(".main-video-container .main-video .secondSrc").src =
+      src2;
+    document.querySelector(".main-video-container .main-video").load();
+    document.querySelector(".main-video-container .main-video").play();
+
+    document.querySelector(".main-video-container .main-vid-title").innerHTML =
+      title;
+    if (datas) {
+      for (var i = datas.totalDemoVideo; i <= datas.totalVideo; i++) {
+        console.log("fljk");
+        document.getElementById(i + 1).style.opacity = "0.6";
+        document
+          .getElementsByClassName("payed-anchor")
+          [i].removeAttribute("hidden");
+      }
+    }
+  }
+  // function fn() {
+  //   console.log("error");
+  //   // document.getElementById("pay-button-div").removeAttribute("hidden");
+  //   // for (var i = totalDemoVideo; i <= totalVideo; i++) {
+  //   //   document.getElementById(i + 1).style.opacity = "0.6";
+  //   //   document
+  //   //     .getElementsByClassName("payed-anchor")
+  //   //     [i].removeAttribute("hidden");
+  //   // }
+  // }
   var [datas, setDatas] = useState();
   const a = async () => {
     const { data } = await axios.post("/api/course", { course: 1 });
@@ -18,41 +58,8 @@ const Course = () => {
     //Runs only on the first render
     a();
   }, []);
+
   if (datas) {
-    let videoList = document.querySelectorAll(".video-list-container .list");
-    videoList.forEach((vid) => {
-      vid.onclick = () => {
-        videoList.forEach((remove) => {
-          remove.classList.remove("active");
-        });
-        vid.classList.add("active");
-        let src1 = vid.querySelector(".list-video .istSrc").src;
-        let src2 = vid.querySelector(".list-video .secondSrc").src;
-
-        let title = vid.querySelector(".list-title").innerHTML;
-        document.querySelector(
-          ".main-video-container .main-video .istSrc"
-        ).src = src1;
-        document.querySelector(
-          ".main-video-container .main-video .secondSrc"
-        ).src = src2;
-        document.querySelector(".main-video-container .main-video").load();
-        document.querySelector(
-          ".main-video-container .main-vid-title"
-        ).innerHTML = title;
-      };
-    });
-
-    function fn() {
-      console.log("error");
-      document.getElementById("pay-button-div").removeAttribute("hidden");
-      for (var i = datas.totalDemoVideo; i <= datas.totalVideo; i++) {
-        document.getElementById(i + 1).style.opacity = "0.6";
-        document
-          .getElementsByClassName("payed-anchor")
-          [i].removeAttribute("hidden");
-      }
-    }
     return (
       <>
         <div className="course-div">
@@ -72,9 +79,8 @@ const Course = () => {
                     type="video/mp4"
                   />
                   <source
-                    onerror={() => fn()}
                     className="secondSrc"
-                    src={datas.istVideoSrc}
+                    src={datas.secondVideoSrc}
                     type="video/mp4"
                   />
                 </video>
@@ -83,7 +89,7 @@ const Course = () => {
 
               <div className="video-list-container">
                 {datas.videos.map((video) => (
-                  <div className="list {{active}}">
+                  <div onClick={fd} className={video.active}>
                     <video
                       id={video.videoNo}
                       className="list-video"
