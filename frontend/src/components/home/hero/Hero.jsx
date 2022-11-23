@@ -3,6 +3,9 @@ import Heading from "../../common/heading/Heading";
 import "./Hero.css";
 
 const Hero = () => {
+  function fnClick() {
+    console.log("click videw course");
+  }
   return (
     <>
       <section className="hero">
@@ -19,11 +22,11 @@ const Hero = () => {
             <div className="button">
               {/* <button className="primary-btn">
                 GET STARTED NOW{" "}
-                <i className="fa fa-long-arrow-alt-right arrow-icon"></i>
+                <i className="fa fa-long-arrow-alt-right arrow-icon rst"></i>
               </button>
 
-              <button className="viewCourse-button">
-                VIEW COURSE <i className="fa fa-long-arrow-alt-right"></i>
+              <button onClick={fnClick} className="viewCourse-button">
+                VIEW COURSE <i className="fa fa-long-arrow-alt-right rst"></i>
               </button> */}
             </div>
           </div>

@@ -4,11 +4,24 @@ import Head from "./Head";
 import "./header.css";
 import { useEffect } from "react";
 import axios from "axios";
+import Profile from "../../profile/Profile";
 
 const Header = () => {
   function viewClick() {
     console.log("view click");
+    if (profile) {
+      setProfile(false);
+    } else {
+      setProfile(true);
+    }
   }
+  document.body.addEventListener("click", (e) => {
+    if (!e.target.classList.contains("rst1")) {
+      if (profile) {
+        setProfile(false);
+      }
+    }
+  });
   const fetchJWT = async () => {
     const { data } = await axios.get("/api/jwt");
     if (data.login == "login") {
@@ -24,6 +37,7 @@ const Header = () => {
   }, []);
 
   const [click, setClick] = useState(false);
+  const [profile, setProfile] = useState(false);
 
   return (
     <>
@@ -57,7 +71,11 @@ const Header = () => {
             </li>
           </ul>
           <div className="start">
-            <div onClick={viewClick} id="dashboard-button" className="button">
+            <div
+              onClick={viewClick}
+              id="dashboard-button"
+              className="button rst1"
+            >
               dashboard
             </div>
           </div>
@@ -70,6 +88,7 @@ const Header = () => {
           </button>
         </nav>
       </header>
+      {profile && <Profile></Profile>}
     </>
   );
 };
