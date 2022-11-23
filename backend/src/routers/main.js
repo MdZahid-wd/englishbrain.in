@@ -147,9 +147,9 @@ async function loginPresent(req, res, next) {
             req.login = "login";
             next();
           } else {
-            console.log(verifyUser.id);
             const data = await student.findOne({ _id: verifyUser.id });
             req.login = data.name.split(" ")[0];
+            req.userId = verifyUser.id;
             next();
           }
         } catch (e) {
@@ -345,7 +345,7 @@ routes.post("api/courseafterresgistesr", async (req, res) => {
   }
 });
 
-//course information..............................................................................................................................................................
+//api course///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 routes.post("/api/course", loginPresent, async (req, res) => {
   const courseNum = 1;
 
@@ -1119,6 +1119,37 @@ routes.post("/api/register", async (req, res) => {
     }
   }
 });
-//api course///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+//api profile////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+routes.get("/api/profile", loginPresent, async (req, res) => {
+  console.log(req.userId, ".ssssssssssssssssssssssssss");
+  try {
+    const data = await student.findOne({ _id: req.userId });
+    console.log(data);
+    res.send({
+      email: data.email,
+      name: data.name,
+      class: data.class,
+      phone: data.phone,
+      address: data.address,
+      course: data.course,
+    });
+  } catch (e) {
+    console.log(e);
+    res.send("error");
+  }
+});
+//api logout////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+routes.get("/api/logout", loginPresent, async (req, res) => {
+  console.log(req.userId, ".ssssssssssssssssssssssssss");
+  try {
+    res.clearCookie("jwts");
+    res.clearCookie("CloudFront-Key-Pair-Id");
+    res.clearCookie("CloudFront-Policy");
+    res.clearCookie("CloudFront-Signature");
+    res.send("success");
+  } catch (e) {
+    console.log(e);
+    res.send("errrrr");
+  }
+});
 module.exports = routes;

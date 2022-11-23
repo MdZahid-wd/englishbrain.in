@@ -7,14 +7,23 @@ import axios from "axios";
 import Profile from "../../profile/Profile";
 
 const Header = () => {
-  function viewClick() {
-    console.log("view click");
+  const dashboardClick = async () => {
     if (profile) {
       setProfile(false);
     } else {
-      setProfile(true);
+      try {
+        const { data } = await axios.get("/api/profile");
+        console.log(data, ".......//////////////////");
+        if (profileData == null && data) {
+          setProfileData(data);
+        }
+
+        setProfile(true);
+      } catch (e) {
+        console.log(e);
+      }
     }
-  }
+  };
   document.body.addEventListener("click", (e) => {
     if (!e.target.classList.contains("rst1")) {
       if (profile) {
@@ -36,8 +45,9 @@ const Header = () => {
     fetchJWT();
   }, []);
 
-  const [click, setClick] = useState(false);
-  const [profile, setProfile] = useState(false);
+  let [click, setClick] = useState(false);
+  let [profile, setProfile] = useState(false);
+  let [profileData, setProfileData] = useState();
 
   return (
     <>
@@ -72,7 +82,7 @@ const Header = () => {
           </ul>
           <div className="start">
             <div
-              onClick={viewClick}
+              onClick={() => dashboardClick()}
               id="dashboard-button"
               className="button rst1"
             >
@@ -88,7 +98,8 @@ const Header = () => {
           </button>
         </nav>
       </header>
-      {profile && <Profile></Profile>}
+      {console.log(profileData)}
+      {profile && <Profile profileDetail={profileData}></Profile>}
     </>
   );
 };

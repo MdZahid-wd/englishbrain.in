@@ -44,3 +44,41 @@
 .roow {
   display: flex;
 }
+#profile-image {
+  width: 150px;
+}
+.setting {
+  display: flex;
+  justify-content: space-evenly;
+  background-color: aquamarine;
+  padding: 10px 0;
+}
+.setting button {
+  color: #682773;
+  background-color: aquamarine;
+}
+@media screen and (max-width: 768px) {
+  .roow {
+    display: block;
+  }
+  .detail {
+    margin-left: 0 20px;
+  }
+  .detail h3 {
+    font-size: 11px;
+  }
+  #profile-image {
+    width: 100px;
+  }
+  #profile-name {
+    font-size: 13px;
+  }
+  #profile-email {
+    font-size: 14px;
+  }
+
+  .setting button {
+    font-size: 9px;
+    margin: 0;
+  }
+}
