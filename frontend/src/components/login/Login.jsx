@@ -5,12 +5,19 @@ import Register from "../register/Register";
 import { useState } from "react";
 import axios from "axios";
 import "./login.css";
+import Forgot from "../forgot/Forgot";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  let [email, setEmail] = useState("");
+  let [password, setPassword] = useState("");
+  let [loading, setLoading] = useState(false);
+  let [error, setError] = useState(false);
+  let [registerReq, setRegisterReq] = useState(false);
+  let [forgot, setForgot] = useState(false);
+
+  const forgotClick = async () => {
+    setForgot(true);
+  };
 
   const submitHandler = async (ev) => {
     ev.preventDefault();
@@ -37,13 +44,14 @@ const Login = () => {
     }
   };
 
-  let [registerReq, setRegisterReq] = useState(false);
   function regClick() {
     console.log(registerReq);
     setRegisterReq(true);
   }
   if (registerReq) {
     return <Register></Register>;
+  } else if (forgot) {
+    return <Forgot></Forgot>;
   } else {
     return (
       <>
@@ -65,10 +73,14 @@ const Login = () => {
                 We'll never share your email with anyone else.
               </Form.Text>
             </Form.Group>
-            <Form.Group className="mb-1 rst" controlId="formBasicPassword">
+            <Form.Group
+              id="login-password-input"
+              className="mb-1 rst"
+              controlId="formBasicPassword"
+            >
               <Form.Label className="rst">Password</Form.Label>
               <Form.Control
-                className="rst"
+                className=" rst"
                 type="password"
                 placeholder="Password"
                 value={password}
@@ -76,10 +88,6 @@ const Login = () => {
                 required
               />
             </Form.Group>
-
-            <button className="rst" id="forgot-anchor">
-              forgot password
-            </button>
 
             <Button className="rst" variant="primary" type="submit">
               login
@@ -92,6 +100,14 @@ const Login = () => {
               register
             </Button>
           </Form>
+          <button
+            onClick={() => forgotClick()}
+            className="rst"
+            id="forgot-anchor"
+          >
+            forgot password
+          </button>
+          <p id="enter-email-paragraph"></p>
         </section>
       </>
     );

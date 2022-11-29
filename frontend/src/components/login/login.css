@@ -14,6 +14,7 @@
 #forgot-anchor {
   display: block;
   margin: auto;
+  padding-top: 30px;
   color: rgba(0, 0, 255, 0.353);
 }
 #forgot-anchor:hover {

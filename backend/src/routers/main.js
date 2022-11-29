@@ -10,6 +10,8 @@ const jwt = require("jsonwebtoken");
 const multer = require("multer");
 const multerS3 = require("multer-s3");
 const aws = require("aws-sdk");
+const nodemailer = require("nodemailer");
+const validator = require("email-validator");
 const {
   S3Client,
   GetObjectCommand,
@@ -900,108 +902,114 @@ routes.post("api/updateCourse", autha, async (req, res) => {
 routes.post("/api/login", async (req, res) => {
   console.log("api/login is running");
   console.log(req.body);
-  try {
-    const data = await student.findOne({ email: req.body.email });
-    if (data == null) {
-      res.send("invalid email");
-      console.log("email does't exist");
-    } else {
-      if (data.password1 == req.body.password) {
-        console.log("verify");
-        //jwt token
-        const user = { id: data._id };
-        const token = jwt.sign(user, process.env.JWT_SECRET_KEY, {
-          expiresIn: "12h",
-        });
-        console.log("........ttttttttt.......");
-        console.log(token);
-        console.log("........ttttttttt.......");
-        console.log(user);
+  if (validator.validate(req.body.email)) {
+    const a = validator.validate(req.body.email);
+    console.log(a, "email validator information");
+    try {
+      const data = await student.findOne({ email: req.body.email });
+      if (data == null) {
+        res.send("this email is not register");
+        console.log("email does't exist");
+      } else {
+        if (data.password1 == req.body.password) {
+          console.log("verify");
+          //jwt token
+          const user = { id: data._id };
+          const token = jwt.sign(user, process.env.JWT_SECRET_KEY, {
+            expiresIn: "12h",
+          });
+          console.log("........ttttttttt.......");
+          console.log(token);
+          console.log("........ttttttttt.......");
+          console.log(user);
 
-        res.cookie("jwts", token, [
-          {
-            expires: new Date(Date.now() + 60 * 60 * 1000 * 12),
-            httpOnly: true,
-          },
-        ]);
-        //jwt token
-        //cloudfront token
-        const privateKey =
-          process.env.A +
-          "\n" +
-          process.env.B +
-          process.env.C +
-          process.env.D +
-          process.env.E +
-          process.env.F +
-          process.env.G +
-          process.env.H +
-          process.env.I +
-          process.env.J +
-          process.env.K +
-          process.env.L +
-          process.env.M +
-          process.env.N +
-          "\n" +
-          process.env.O;
-
-        const cloudFront = new aws.CloudFront.Signer(
-          process.env.KEY_PAIR_ID,
-          privateKey
-        );
-
-        const policy = JSON.stringify({
-          Statement: [
+          res.cookie("jwts", token, [
             {
-              Resource: "https://files.englishbrain.in/*", // http* => http and https
-              Condition: {
-                DateLessThan: {
-                  "AWS:EpochTime":
-                    Math.floor(new Date().getTime() / 1000) + 60 * 60 * 12, // Current Time in UTC + time in seconds, (60 * 60 * 12 = 12 hrs)
+              expires: new Date(Date.now() + 60 * 60 * 1000 * 12),
+              httpOnly: true,
+            },
+          ]);
+          //jwt token
+          //cloudfront token
+          const privateKey =
+            process.env.A +
+            "\n" +
+            process.env.B +
+            process.env.C +
+            process.env.D +
+            process.env.E +
+            process.env.F +
+            process.env.G +
+            process.env.H +
+            process.env.I +
+            process.env.J +
+            process.env.K +
+            process.env.L +
+            process.env.M +
+            process.env.N +
+            "\n" +
+            process.env.O;
+
+          const cloudFront = new aws.CloudFront.Signer(
+            process.env.KEY_PAIR_ID,
+            privateKey
+          );
+
+          const policy = JSON.stringify({
+            Statement: [
+              {
+                Resource: "https://files.englishbrain.in/*", // http* => http and https
+                Condition: {
+                  DateLessThan: {
+                    "AWS:EpochTime":
+                      Math.floor(new Date().getTime() / 1000) + 60 * 60 * 12, // Current Time in UTC + time in seconds, (60 * 60 * 12 = 12 hrs)
+                  },
                 },
               },
-            },
-          ],
-        });
+            ],
+          });
 
-        const cookie = cloudFront.getSignedCookie({
-          policy,
-        });
-        console.log(cookie);
-        console.log(Object.values(cookie)[1]);
-        console.log(Object.values(cookie)[0]);
-        console.log(Object.values(cookie)[2]);
+          const cookie = cloudFront.getSignedCookie({
+            policy,
+          });
+          console.log(cookie);
+          console.log(Object.values(cookie)[1]);
+          console.log(Object.values(cookie)[0]);
+          console.log(Object.values(cookie)[2]);
 
-        res.cookie("CloudFront-Key-Pair-Id", Object.values(cookie)[1], {
-          domain: ".englishbrain.in",
-          path: "/",
-          httpOnly: true,
-          secure: true,
-        });
+          res.cookie("CloudFront-Key-Pair-Id", Object.values(cookie)[1], {
+            domain: ".englishbrain.in",
+            path: "/",
+            httpOnly: true,
+            secure: true,
+          });
 
-        res.cookie("CloudFront-Policy", Object.values(cookie)[0], {
-          domain: ".englishbrain.in",
-          path: "/",
-          httpOnly: true,
-          secure: true,
-        });
+          res.cookie("CloudFront-Policy", Object.values(cookie)[0], {
+            domain: ".englishbrain.in",
+            path: "/",
+            httpOnly: true,
+            secure: true,
+          });
 
-        res.cookie("CloudFront-Signature", Object.values(cookie)[2], {
-          domain: ".englishbrain.in",
-          path: "/",
-          httpOnly: true,
-          secure: true,
-        });
+          res.cookie("CloudFront-Signature", Object.values(cookie)[2], {
+            domain: ".englishbrain.in",
+            path: "/",
+            httpOnly: true,
+            secure: true,
+          });
 
-        //cloudfront token
-        res.send({ name: data.name });
-      } else {
-        console.log("password dont match");
-        res.send("invalid email");
+          //cloudfront token
+          res.send({ name: data.name });
+        } else {
+          console.log("password dont match");
+          res.send("invalid email or password");
+        }
       }
+    } catch (e) {
+      console.log(e);
     }
-  } catch (e) {
-    console.log(e);
+  } else {
+    res.send("email does't exist");
   }
 });
 //api jwt//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1011,133 +1019,148 @@ routes.get("/api/jwt", loginPresent, (req, res) => {
 });
 //register//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 routes.post("/api/register", async (req, res) => {
-  console.log(req.body);
-  const data = await student.findOne({ email: req.body.email });
-  if (data == null) {
-    if (req.body.password1 == req.body.password2) {
-      try {
-        const { data } = await student.create(req.body);
-        console.log(data);
-        //jwt token
-        const user = { id: data._id };
-        const token = jwt.sign(user, process.env.JWT_SECRET_KEY, {
-          expiresIn: "12h",
-        });
-        console.log("........ttttttttt.......");
-        console.log(token);
-        console.log("........ttttttttt.......");
-        console.log(user);
+  if (validator.validate(req.body.email)) {
+    const data = await student.findOne({ email: req.body.email });
+    if (data == null) {
+      if (req.body.password1 == req.body.password2) {
+        try {
+          const data = await student.create(req.body);
 
-        res.cookie("jwts", token, [
-          {
-            expires: new Date(Date.now() + 60 * 60 * 1000 * 12),
-            httpOnly: true,
-          },
-        ]);
-        //jwt token
-        //cloudfront token
-        const privateKey =
-          process.env.A +
-          "\n" +
-          process.env.B +
-          process.env.C +
-          process.env.D +
-          process.env.E +
-          process.env.F +
-          process.env.G +
-          process.env.H +
-          process.env.I +
-          process.env.J +
-          process.env.K +
-          process.env.L +
-          process.env.M +
-          process.env.N +
-          "\n" +
-          process.env.O;
+          //jwt token
+          const user = { id: data._id };
+          const token = jwt.sign(user, process.env.JWT_SECRET_KEY, {
+            expiresIn: "12h",
+          });
 
-        const cloudFront = new aws.CloudFront.Signer(
-          process.env.KEY_PAIR_ID,
-          privateKey
-        );
-
-        const policy = JSON.stringify({
-          Statement: [
+          res.cookie("jwts", token, [
             {
-              Resource: "https://files.englishbrain.in/*", // http* => http and https
-              Condition: {
-                DateLessThan: {
-                  "AWS:EpochTime":
-                    Math.floor(new Date().getTime() / 1000) + 60 * 60 * 12, // Current Time in UTC + time in seconds, (60 * 60 * 12 = 12 hrs)
+              expires: new Date(Date.now() + 60 * 60 * 1000 * 12),
+              httpOnly: true,
+            },
+          ]);
+          //jwt token
+          //cloudfront token
+          const privateKey =
+            process.env.A +
+            "\n" +
+            process.env.B +
+            process.env.C +
+            process.env.D +
+            process.env.E +
+            process.env.F +
+            process.env.G +
+            process.env.H +
+            process.env.I +
+            process.env.J +
+            process.env.K +
+            process.env.L +
+            process.env.M +
+            process.env.N +
+            "\n" +
+            process.env.O;
+
+          const cloudFront = new aws.CloudFront.Signer(
+            process.env.KEY_PAIR_ID,
+            privateKey
+          );
+
+          const policy = JSON.stringify({
+            Statement: [
+              {
+                Resource: "https://files.englishbrain.in/*", // http* => http and https
+                Condition: {
+                  DateLessThan: {
+                    "AWS:EpochTime":
+                      Math.floor(new Date().getTime() / 1000) + 60 * 60 * 12, // Current Time in UTC + time in seconds, (60 * 60 * 12 = 12 hrs)
+                  },
                 },
               },
-            },
-          ],
-        });
+            ],
+          });
 
-        const cookie = cloudFront.getSignedCookie({
-          policy,
-        });
-        console.log(cookie);
-        console.log(Object.values(cookie)[1]);
-        console.log(Object.values(cookie)[0]);
-        console.log(Object.values(cookie)[2]);
+          const cookie = cloudFront.getSignedCookie({
+            policy,
+          });
+          console.log(cookie);
+          console.log(Object.values(cookie)[1]);
+          console.log(Object.values(cookie)[0]);
+          console.log(Object.values(cookie)[2]);
 
-        res.cookie("CloudFront-Key-Pair-Id", Object.values(cookie)[1], {
-          domain: ".englishbrain.in",
-          path: "/",
-          httpOnly: true,
-          secure: true,
-        });
+          res.cookie("CloudFront-Key-Pair-Id", Object.values(cookie)[1], {
+            domain: ".englishbrain.in",
+            path: "/",
+            httpOnly: true,
+            secure: true,
+          });
 
-        res.cookie("CloudFront-Policy", Object.values(cookie)[0], {
-          domain: ".englishbrain.in",
-          path: "/",
-          httpOnly: true,
-          secure: true,
-        });
+          res.cookie("CloudFront-Policy", Object.values(cookie)[0], {
+            domain: ".englishbrain.in",
+            path: "/",
+            httpOnly: true,
+            secure: true,
+          });
 
-        res.cookie("CloudFront-Signature", Object.values(cookie)[2], {
-          domain: ".englishbrain.in",
-          path: "/",
-          httpOnly: true,
-          secure: true,
-        });
+          res.cookie("CloudFront-Signature", Object.values(cookie)[2], {
+            domain: ".englishbrain.in",
+            path: "/",
+            httpOnly: true,
+            secure: true,
+          });
 
-        //cloudfront token
-        res.send({ name: data.name });
-      } catch (e) {
-        console.log(e);
-        res.send("fail");
+          //cloudfront token
+          //sending email
+          try {
+            const transporter = nodemailer.createTransport({
+              service: "gmail",
+              auth: {
+                user: "zahidmd9830@gmail.com",
+                pass: "Pnsg jugp qbgm hson",
+              },
+            });
+            var maillist = [req.body.email, "zahidmd9830@gmail.com"];
+
+            send();
+
+            async function send() {
+              const result = await transporter.sendMail({
+                from: "zahidmd9830@gmail.com",
+                to: maillist,
+                subject: "welcome",
+                text: "thankyou for joing Ali's radiant",
+              });
+
+              console.log(JSON.stringify(result, null, 4));
+              console.log(result.accepted[0]);
+              if (result.accepted[0] == req.body.email) {
+                console.log("success");
+              } else {
+                console.log("rejected");
+              }
+            }
+          } catch (e) {
+            console.log(e);
+            res.send("err");
+          }
+          //sending email
+          res.send({ name: data.name });
+        } catch (e) {
+          console.log(e);
+          res.send("fail");
+        }
+      } else {
+        res.send("password not matching");
       }
     } else {
-      res.send("password not matching");
+      if (data.email == req.body.email) {
+        res.send("you are already register");
+        console.log("email already exist");
+      }
     }
   } else {
-    if (data.email == req.body.email) {
-      res.send("you are already register");
-      console.log("email already exist");
-    }
+    res.send("not valid email");
   }
 });
-//api profile////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-routes.get("/api/profile", loginPresent, async (req, res) => {
-  console.log(req.userId, ".ssssssssssssssssssssssssss");
-  try {
-    const data = await student.findOne({ _id: req.userId });
-    console.log(data);
-    res.send({
-      email: data.email,
-      name: data.name,
-      class: data.class,
-      phone: data.phone,
-      address: data.address,
-      course: data.course,
-    });
-  } catch (e) {
-    console.log(e);
-    res.send("error");
-  }
-});
+
 //api logout////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 routes.get("/api/logout", loginPresent, async (req, res) => {
   console.log(req.userId, ".ssssssssssssssssssssssssss");
@@ -1150,6 +1173,98 @@ routes.get("/api/logout", loginPresent, async (req, res) => {
   } catch (e) {
     console.log(e);
     res.send("errrrr");
+  }
+});
+//api forgot password////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+routes.post("/api/forgotPassword", async (req, res) => {
+  console.log(req.body.email);
+  try {
+    res.send("email is send to mail");
+
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "zahidmd9830@gmail.com",
+        pass: "Pnsg jugp qbgm hson",
+      },
+    });
+    var maillist = [req.body.email, "zahidmd9830@gmail.com"];
+
+    send();
+
+    async function send() {
+      const result = await transporter.sendMail({
+        from: "zahidmd9830@gmail.com",
+        to: maillist,
+        subject: "email verification",
+        text: "sorry this is in devlopment stage",
+      });
+
+      console.log(JSON.stringify(result, null, 4));
+      console.log(result.accepted[0]);
+      if (result.accepted[0] == req.body.email) {
+        console.log("success");
+      } else {
+        console.log("rejected");
+      }
+    }
+  } catch (e) {
+    console.log(e);
+    res.send("err");
+  }
+});
+//api profile////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+routes.get("/api/profile", loginPresent, async (req, res) => {
+  console.log(req.userId, ".ssssssssssssssssssssssssss");
+  try {
+    const data = await student.findOne({ _id: req.userId });
+
+    res.send({
+      email: data.email,
+      name: data.name,
+      class: data.class,
+      phone: data.phone,
+      address: data.address,
+      course: data.course,
+      url: data.url,
+    });
+  } catch (e) {
+    console.log(e);
+    res.send("error");
+  }
+});
+//api profile Update////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+routes.post("/api/profileUpdate", loginPresent, async (req, res) => {
+  console.log(req.userId, "uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu");
+  console.log(req.body);
+  try {
+    //const data = await student.findOne({ _id: req.userId });
+    const data = await student.updateOne(
+      { _id: req.userId },
+      { $set: { address: req.body.address } }
+    );
+    console.log(data);
+    res.send(data);
+  } catch (e) {
+    console.log(e);
+    res.send("error");
+  }
+});
+//api profile pic Update////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+routes.post("/api/profilePicUpdate", loginPresent, async (req, res) => {
+  console.log(req.userId, "uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu");
+
+  try {
+    //const data = await student.findOne({ _id: req.userId });
+    const data = await student.updateOne(
+      { _id: req.userId },
+      { $set: { url: req.body.url } }
+    );
+    console.log(data);
+    res.send(data);
+  } catch (e) {
+    console.log(e);
+    res.send("error");
   }
 });
 module.exports = routes;

@@ -1,14 +1,13 @@
-const mongoose=require('mongoose');
+const mongoose = require("mongoose");
 
-const student=mongoose.Schema(
-    {
-        email:String,
-        name:String,
-        class:Number,
-        phone:String,
-        password1:String,
-        address:String,
-        course:Array,
-    }
-)
-module.exports=mongoose.model('students',student);
+const student = mongoose.Schema({
+  email: String,
+  name: String,
+  class: Number,
+  phone: String,
+  password1: String,
+  address: String,
+  course: Array,
+  url: String,
+});
+module.exports = mongoose.model("students", student);

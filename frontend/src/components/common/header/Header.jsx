@@ -7,21 +7,23 @@ import axios from "axios";
 import Profile from "../../profile/Profile";
 
 const Header = () => {
+  let [click, setClick] = useState(false);
+  let [profile, setProfile] = useState(false);
+  let [profileData, setProfileData] = useState();
   const dashboardClick = async () => {
     if (profile) {
       setProfile(false);
     } else {
       try {
         const { data } = await axios.get("/api/profile");
-        console.log(data, ".......//////////////////");
-        if (profileData == null && data) {
+
+        if (data) {
           setProfileData(data);
         }
-
-        setProfile(true);
       } catch (e) {
         console.log(e);
       }
+      setProfile(true);
     }
   };
   document.body.addEventListener("click", (e) => {
@@ -44,10 +46,6 @@ const Header = () => {
     //Runs only on the first render
     fetchJWT();
   }, []);
-
-  let [click, setClick] = useState(false);
-  let [profile, setProfile] = useState(false);
-  let [profileData, setProfileData] = useState();
 
   return (
     <>
@@ -98,7 +96,7 @@ const Header = () => {
           </button>
         </nav>
       </header>
-      {console.log(profileData)}
+
       {profile && <Profile profileDetail={profileData}></Profile>}
     </>
   );

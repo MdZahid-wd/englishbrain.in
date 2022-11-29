@@ -57,6 +57,13 @@
   color: #682773;
   background-color: aquamarine;
 }
+.update-profile {
+  width: 100%;
+}
+#update-image {
+  display: flex;
+  width: 70%;
+}
 @media screen and (max-width: 768px) {
   .roow {
     display: block;
