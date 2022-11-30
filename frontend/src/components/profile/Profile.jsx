@@ -89,13 +89,12 @@ const Profile = (props) => {
 
         {edit && (
           <div className=" col-md-5 border-right rst1">
-            <ProfileImage></ProfileImage>
             <form onSubmit={submitHandlerUpdate} className="rst1" method="post">
               <div className=" p-3 py-3 rst1">
                 <div className=" d-flex justify-content-between align-items-center mb-3 rst1">
                   <h4 className="text-right rst1">Profile Settings</h4>
                 </div>
-
+                <ProfileImage></ProfileImage>
                 <div className="update-profile row mt-2 rst1">
                   <div className="col-md-6 rst1">
                     <label className="labels rst1">First Name</label>

@@ -66,13 +66,15 @@ header ul li a:hover {
   font-weight: 500;
   transition: 0.3s;
   color: rgb(255, 255, 255);
-
+  box-shadow: 2px 2px 20px 4px rgba(255, 251, 249, 0.703);
   padding: 6px;
   border-radius: 40px;
+  transition: 0.8s;
 }
 #dashboard-button:hover {
   color: #1eb2a6;
   background-color: #fff;
+  box-shadow: 0 0;
 }
 
 /*--------header------------*/

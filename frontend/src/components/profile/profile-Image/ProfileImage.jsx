@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import ImageCrop from "../imageCrop/ImageCrop.jsx";
+import ImageCrop from "./imageCrop/ImageCrop";
 import axios from "axios";
 class ProfileImage extends Component {
   constructor(props, context) {
@@ -7,7 +7,8 @@ class ProfileImage extends Component {
     this.state = {
       userProfilePic: "",
       editor: null,
-      scaleValue: 1,
+      scaleValue: 50,
+      rotateValue: 0,
     };
   }
 
@@ -24,17 +25,23 @@ class ProfileImage extends Component {
         const { data } = await axios.post("/api/profilePicUpdate", {
           url: url,
         });
-        console.log(data);
+        console.log(data, "after setting profile pic");
+        if (data.acknowledged == true) {
+          console.log("dashboard change time");
+          document.getElementById("dashboard-button").click();
+        }
       } catch (e) {
         console.log(e, "during sending login form ");
       }
       //sending profile pic//////////////////
 
       this.setState({ userProfilePic: url });
-      console.log(url);
     }
   };
-
+  onRotateChange = (scaleChangeEvent) => {
+    // const scaleValue = parseFloat(scaleChangeEvent.target.value);
+    // this.setState({ scaleValue });
+  };
   onScaleChange = (scaleChangeEvent) => {
     const scaleValue = parseFloat(scaleChangeEvent.target.value);
     this.setState({ scaleValue });
@@ -94,9 +101,9 @@ class ProfileImage extends Component {
           onCrop={this.onCrop}
           scaleValue={this.state.scaleValue}
           onScaleChange={this.onScaleChange}
+          rotateValue={this.state.rotateValue}
+          onRotateChange={this.onRotateChange}
         />
-
-        <img className=" rst1" src={this.state.userProfilePic} alt="Profile" />
       </div>
     );
   }

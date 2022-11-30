@@ -8,6 +8,7 @@ const ImageCrop = ({
   setEditorRef,
   scaleValue,
   onScaleChange,
+  rotateValue,
 }) => (
   <div>
     <div className="editorOverlayInner rst1">
@@ -15,27 +16,36 @@ const ImageCrop = ({
         <div className="cropCnt rst1">
           <AvatarEditor
             image={imageSrc}
-            border={50}
-            scale={scaleValue}
-            rotate={0}
+            border={0}
+            scale={scaleValue / 50}
+            rotate={rotateValue}
             ref={setEditorRef}
             className="rounded-circle mt-5 cropCanvas rst1"
           />
+          <label htmlFor="input">size</label>
           <input
-            className="rst1"
+            className="profile-scale rst1"
             style={{ width: "100%" }}
             type="range"
             value={scaleValue}
             name="points"
             min="1"
-            max="10"
+            max="200"
             onChange={onScaleChange}
           />
-          {console.log(onScaleChange)}
-          <button
-            onClick={onCrop}
-            className="editorOverlayCloseBtn crpBtn rst1"
-          >
+
+          {/* <input
+            className="profile-scale rst1"
+            style={{ width: "100%" }}
+            type="range"
+            value={rotateValue}
+            name="points"
+            min="1"
+            max="360"
+            onChange={onScaleChange}
+          /> */}
+
+          <button onClick={onCrop} className="editorOverlayCloseBtn crpBtn ">
             Save
           </button>
         </div>
@@ -50,6 +60,8 @@ ImageCrop.propTypes = {
   onCrop: PropTypes.func.isRequired,
   scaleValue: PropTypes.number.isRequired,
   onScaleChange: PropTypes.func.isRequired,
+  rotateValue: PropTypes.number.isRequired,
+  onRotateChange: PropTypes.func.isRequired,
 };
 
 export default ImageCrop;
