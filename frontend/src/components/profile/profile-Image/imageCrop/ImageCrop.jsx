@@ -23,6 +23,7 @@ const ImageCrop = ({
             className="rounded-circle mt-5 cropCanvas rst1"
           />
           <label htmlFor="input">size</label>
+
           <input
             className="profile-scale rst1"
             style={{ width: "100%" }}
@@ -33,6 +34,9 @@ const ImageCrop = ({
             max="200"
             onChange={onScaleChange}
           />
+          <button onClick={onCrop} className="editorOverlayCloseBtn crpBtn ">
+            Save
+          </button>
 
           {/* <input
             className="profile-scale rst1"
@@ -44,10 +48,6 @@ const ImageCrop = ({
             max="360"
             onChange={onScaleChange}
           /> */}
-
-          <button onClick={onCrop} className="editorOverlayCloseBtn crpBtn ">
-            Save
-          </button>
         </div>
       </div>
     </div>

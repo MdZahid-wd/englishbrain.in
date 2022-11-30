@@ -47,10 +47,10 @@ export const coursesCard = [
   {
     id: 1,
     cover: "../images/courses/c1.png",
-    coursesName: "12th WBBSE english",
+    coursesName: "12th WBBSE",
     courTeacher: [
       {
-        dcover: "./images/back.webp",
+        dcover: "./images/zeshan.jpg",
         name: "Zeshan ali",
         totalTime: "50 lectures (190 hrs)",
       },
@@ -61,11 +61,11 @@ export const coursesCard = [
   {
     id: 2,
     cover: "../images/courses/c2.png",
-    coursesName: "Enhancing Adobe Photoshop CC 2020 Skills",
+    coursesName: "Enhancing Adobe Photoshop CC ",
     courTeacher: [
       {
         dcover: "./images/back.webp",
-        name: "by Ram Gurung",
+        name: "md zahid",
         totalTime: "30 lectures (125 hrs)",
       },
     ],
@@ -79,7 +79,7 @@ export const coursesCard = [
     courTeacher: [
       {
         dcover: "./images/back.webp",
-        name: "by Saroj Nepal",
+        name: "md zahid",
         totalTime: "50 lectures (50 hrs)",
       },
     ],
@@ -175,75 +175,75 @@ export const online = [
   {
     cover: "./images/courses/online/o1.png",
     hoverCover: "./images/courses/online/o1.1.png",
-    courseName: "UI/UX Design Courses",
+    courseName: "maths",
     course: "25 videos",
   },
   {
     cover: "./images/courses/online/o2.png",
     hoverCover: "./images/courses/online/o2.1.png",
-    courseName: "Art & Design",
+    courseName: "Physics",
     course: "0 videos",
   },
   {
     cover: "./images/courses/online/o3.png",
     hoverCover: "./images/courses/online/o3.1.png",
-    courseName: "Computer Science",
+    courseName: "Chemistry",
     course: "0 videos",
   },
-  // {
-  //   cover: "./images/courses/online/o4.png",
-  //   hoverCover: "./images/courses/online/o4.1.png",
-  //   courseName: "History & Archeologic",
-  //   course: "0 videos",
-  // },
-  // {
-  //   cover: "./images/courses/online/o5.png",
-  //   hoverCover: "./images/courses/online/o5.1.png",
-  //   courseName: "Software Engineering",
-  //   course: "0 videos",
-  // },
-  // {
-  //   cover: "./images/courses/online/o6.png",
-  //   hoverCover: "./images/courses/online/o6.1.png",
-  //   courseName: "Information Software",
-  //   course: "0 videos",
-  // },
-  // {
-  //   cover: "./images/courses/online/o7.png",
-  //   hoverCover: "./images/courses/online/o7.1.png",
-  //   courseName: "Health & Fitness",
-  //   course: "0 videos",
-  // },
-  // {
-  //   cover: "./images/courses/online/o8.png",
-  //   hoverCover: "./images/courses/online/o8.1.png",
-  //   courseName: "Marketing",
-  //   course: "0 videos",
-  // },
-  // {
-  //   cover: "./images/courses/online/o9.png",
-  //   hoverCover: "./images/courses/online/o9.1.png",
-  //   courseName: "Graphic Design",
-  //   course: "0 videos",
-  // },
-  // {
-  //   cover: "./images/courses/online/o10.png",
-  //   hoverCover: "./images/courses/online/o10.1.png",
-  //   courseName: "Music",
-  //   course: "0 videos",
-  // },
-  // {
-  //   cover: "./images/courses/online/o11.png",
-  //   hoverCover: "./images/courses/online/o11.1.png",
-  //   courseName: "Business Administration",
-  //   course: "0 videos",
-  // },
-  // {
-  //   cover: "./images/courses/online/o12.png",
-  //   hoverCover: "./images/courses/online/o12.1.png",
-  //   courseName: "Web Management",
-  //   course: "0 videos",
-  // },
+  {
+    cover: "./images/courses/online/o4.png",
+    hoverCover: "./images/courses/online/o4.1.png",
+    courseName: "english",
+    course: "0 videos",
+  },
+  {
+    cover: "./images/courses/online/o5.png",
+    hoverCover: "./images/courses/online/o5.1.png",
+    courseName: "biology",
+    course: "0 videos",
+  },
+  {
+    cover: "./images/courses/online/o6.png",
+    hoverCover: "./images/courses/online/o6.1.png",
+    courseName: "Information Software",
+    course: "0 videos",
+  },
+  {
+    cover: "./images/courses/online/o7.png",
+    hoverCover: "./images/courses/online/o7.1.png",
+    courseName: "Health & Fitness",
+    course: "0 videos",
+  },
+  {
+    cover: "./images/courses/online/o8.png",
+    hoverCover: "./images/courses/online/o8.1.png",
+    courseName: "Marketing",
+    course: "0 videos",
+  },
+  {
+    cover: "./images/courses/online/o9.png",
+    hoverCover: "./images/courses/online/o9.1.png",
+    courseName: "Graphic Design",
+    course: "0 videos",
+  },
+  {
+    cover: "./images/courses/online/o10.png",
+    hoverCover: "./images/courses/online/o10.1.png",
+    courseName: "Music",
+    course: "0 videos",
+  },
+  {
+    cover: "./images/courses/online/o11.png",
+    hoverCover: "./images/courses/online/o11.1.png",
+    courseName: "Business Administration",
+    course: "0 videos",
+  },
+  {
+    cover: "./images/courses/online/o12.png",
+    hoverCover: "./images/courses/online/o12.1.png",
+    courseName: "Web Management",
+    course: "0 videos",
+  },
 ];
 export const team = [
   {

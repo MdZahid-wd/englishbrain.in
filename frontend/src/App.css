@@ -156,6 +156,12 @@ p {
 }
 
 @media screen and (max-width: 786px) {
+  .back h1 {
+    font-size: 50px;
+  }
+  .back h2 {
+    margin-top: 100px;
+  }
   .container {
     max-width: 100%;
     margin: auto;

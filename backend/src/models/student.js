@@ -9,5 +9,8 @@ const student = mongoose.Schema({
   address: String,
   course: Array,
   url: String,
+  country: String,
+  state: String,
+  postcode: String,
 });
 module.exports = mongoose.model("students", student);

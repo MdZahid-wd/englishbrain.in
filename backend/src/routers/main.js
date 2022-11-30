@@ -1223,8 +1223,11 @@ routes.get("/api/profile", loginPresent, async (req, res) => {
       email: data.email,
       name: data.name,
       class: data.class,
-      phone: data.phone,
+
       address: data.address,
+      country: data.country,
+      state: data.state,
+      postcode: data.postcode,
       course: data.course,
       url: data.url,
     });
@@ -1239,11 +1242,21 @@ routes.post("/api/profileUpdate", loginPresent, async (req, res) => {
   console.log(req.body);
   try {
     //const data = await student.findOne({ _id: req.userId });
-    const data = await student.updateOne(
+    const data = await student.updateMany(
       { _id: req.userId },
-      { $set: { address: req.body.address } }
+      {
+        $set: {
+          address: req.body.address,
+          name: req.body.name,
+          phone: req.body.mobileNumber,
+          state: req.body.state,
+          country: req.body.country,
+          postcode: req.body.postcode,
+          class: req.body.education,
+        },
+      }
     );
-    console.log(data);
+
     res.send(data);
   } catch (e) {
     console.log(e);

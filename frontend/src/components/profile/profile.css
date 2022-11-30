@@ -61,7 +61,6 @@
   width: 100%;
 }
 #update-image {
-  display: flex;
   width: 70%;
 }
 
@@ -72,7 +71,7 @@
   .detail {
     margin-left: 0 20px;
   }
-  .detail h3 {
+  .detail h5 {
     font-size: 11px;
   }
   #profile-image {

@@ -113,6 +113,65 @@
 .online .box:hover h1 {
   color: #fff;
 }
+body {
+  position: relative;
+  height: 100%;
+}
+
+.swiper {
+  width: 79%;
+  height: 100%;
+}
+
+.swiper-slide {
+  text-align: center;
+  padding: 20px;
+  background: #fff;
+
+  /* Center slide text vertically */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+.swiper-slide:hover {
+  background-color: #1eb2a6;
+  cursor: pointer;
+  transition: 0.2s;
+  border-radius: 5px;
+}
+.swiper-slide:hover span {
+  background-color: #fff;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 35%;
+  height: 35%;
+  object-fit: cover;
+  margin: auto;
+}
+
+.online-box-div h6 {
+  margin-top: 20px;
+}
+.online-box-div span {
+  margin-top: 20px;
+  border-radius: 3px;
+  padding: 3px;
+  color: #1eb2a6;
+}
+.online-box-div {
+  height: 30vh;
+}
 
 /*-------------online---------*/
 @media screen and (max-width: 768px) {
@@ -173,5 +232,18 @@
   }
   #heading h1 {
     font-size: 24px;
+  }
+  .swiper {
+    width: 90%;
+    height: 100%;
+  }
+  .online-box-div h6 {
+    font-size: 11px;
+  }
+  .online-box-div span {
+    font-size: 8px;
+  }
+  .online-box-div {
+    height: 30%;
   }
 }
