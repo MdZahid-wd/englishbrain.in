@@ -11,6 +11,7 @@ const Header = () => {
   let [profile, setProfile] = useState(false);
   let [profileData, setProfileData] = useState();
   const dashboardClick = async () => {
+    setClick(false);
     if (profile) {
       setProfile(false);
     } else {
@@ -52,30 +53,41 @@ const Header = () => {
       <Head />
       <header>
         <nav className="flexSB">
-          <ul
-            className={click ? "mobile-nav" : "flexSB "}
-            onClick={() => setClick(false)}
-          >
+          <ul className={click ? "mobile-nav" : "flexSB "}>
             <li>
-              <Link to="/">Home</Link>
+              <Link onClick={() => setClick(false)} to="/">
+                Home
+              </Link>
             </li>
             <li>
-              <Link to="/courses">All Courses</Link>
+              <Link onClick={() => setClick(false)} to="/courses">
+                All Courses
+              </Link>
             </li>
             <li>
-              <Link to="/about">About</Link>
+              <Link onClick={() => setClick(false)} to="/about">
+                About
+              </Link>
             </li>
             <li>
-              <Link to="/team">Team</Link>
+              <Link onClick={() => setClick(false)} to="/team">
+                Team
+              </Link>
             </li>
             <li>
-              <Link to="/pricing">Pricing</Link>
+              <Link onClick={() => setClick(false)} to="/pricing">
+                Pricing
+              </Link>
             </li>
             <li>
-              <Link to="/journal">Journal</Link>
+              <Link onClick={() => setClick(false)} to="/journal">
+                Journal
+              </Link>
             </li>
             <li>
-              <Link to="/contact">Contact</Link>
+              <Link onClick={() => setClick(false)} to="/contact">
+                Contact
+              </Link>
             </li>
           </ul>
           <div className="start">

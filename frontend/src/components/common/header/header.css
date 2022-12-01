@@ -116,6 +116,12 @@ header ul li a:hover {
   header ul li {
     margin-bottom: 20px;
   }
+  header ul li a {
+    color: #1eb2a6;
+  }
+  header ul li a:hover {
+    color: rgb(210, 11, 11);
+  }
   .toggle {
     display: block;
     background: none;
@@ -128,9 +134,9 @@ header ul li a:hover {
 
   .mobile-nav {
     position: absolute;
-    top: 7vh;
+    top: 10vh;
     left: 0;
     width: 100%;
-    background-color: #1eb2a6;
+    background-color: #ffffff;
   }
 }

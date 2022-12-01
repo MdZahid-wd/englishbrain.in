@@ -173,14 +173,14 @@ export const coursesCard = [
 ];
 export const online = [
   {
-    cover: "./images/courses/online/o1.png",
-    hoverCover: "./images/courses/online/o1.1.png",
+    cover: "./images/courses/online/o6.png",
+    hoverCover: "./images/courses/online/o6.1.png",
     courseName: "maths",
     course: "25 videos",
   },
   {
-    cover: "./images/courses/online/o2.png",
-    hoverCover: "./images/courses/online/o2.1.png",
+    cover: "./images/courses/online/o5.png",
+    hoverCover: "./images/courses/online/o5.1.png",
     courseName: "Physics",
     course: "0 videos",
   },
@@ -191,26 +191,26 @@ export const online = [
     course: "0 videos",
   },
   {
-    cover: "./images/courses/online/o4.png",
-    hoverCover: "./images/courses/online/o4.1.png",
+    cover: "./images/courses/online/o1.png",
+    hoverCover: "./images/courses/online/o1.1.png",
     courseName: "english",
-    course: "0 videos",
-  },
-  {
-    cover: "./images/courses/online/o5.png",
-    hoverCover: "./images/courses/online/o5.1.png",
-    courseName: "biology",
-    course: "0 videos",
-  },
-  {
-    cover: "./images/courses/online/o6.png",
-    hoverCover: "./images/courses/online/o6.1.png",
-    courseName: "Information Software",
     course: "0 videos",
   },
   {
     cover: "./images/courses/online/o7.png",
     hoverCover: "./images/courses/online/o7.1.png",
+    courseName: "biology",
+    course: "0 videos",
+  },
+  {
+    cover: "./images/courses/online/o2.png",
+    hoverCover: "./images/courses/online/o2.1.png",
+    courseName: "painting",
+    course: "0 videos",
+  },
+  {
+    cover: "./images/courses/online/o4.png",
+    hoverCover: "./images/courses/online/o4.1.png",
     courseName: "Health & Fitness",
     course: "0 videos",
   },

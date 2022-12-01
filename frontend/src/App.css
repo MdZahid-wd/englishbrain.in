@@ -229,4 +229,12 @@ p {
   button i {
     margin-left: 10px;
   }
+
+  #heading h3 {
+    font-size: 18px;
+  }
+  #heading h1 {
+    font-size: 20px;
+    margin: 10px 0;
+  }
 }
