@@ -57,6 +57,12 @@
   color: #682773;
   background-color: aquamarine;
 }
+.setting a {
+  color: #682773;
+  font-size: 9px;
+  font-weight: 600;
+  padding: 10px 0;
+}
 .update-profile {
   width: 100%;
 }

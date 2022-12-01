@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./profile.css";
 import axios from "axios";
 import ProfileImage from "./profile-Image/ProfileImage";
+import { Link } from "react-router-dom";
 
 const Profile = (props) => {
   let [edit, setEdit] = useState(false);
@@ -69,7 +70,9 @@ const Profile = (props) => {
             <i className="fa-solid fa-gear rst1"></i>setting
           </button>
           <button className="rst1">payment</button>
-          <button className="rst1">your course</button>
+          <Link className="" to="/courses">
+            your course
+          </Link>
         </div>
 
         <div className="roow rst1">

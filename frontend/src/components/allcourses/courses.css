@@ -246,4 +246,18 @@ body {
   .online-box-div {
     height: 30%;
   }
+  .coursesCard .items {
+    padding: 3px;
+  }
+  .coursesCard .img {
+    width: 60px;
+    height: 60px;
+    padding: 10px;
+  }
+  .coursesCard .text h1 {
+    font-size: 26px;
+    font-weight: 500;
+    line-height: 27px;
+    padding: 10px;
+  }
 }

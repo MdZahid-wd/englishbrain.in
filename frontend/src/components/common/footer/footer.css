@@ -39,8 +39,30 @@ footer .container {
   grid-gap: 30px;
 }
 @media screen and (max-width: 768px) {
+  .newletter .container {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+  }
+  .newletter .right,
+  .newletter .left {
+    padding: 10px;
+    width: 100%;
+  }
+  .newletter .right input {
+    margin-bottom: 10px;
+  }
   footer .container {
     grid-template-columns: repeat(1, 1fr);
+  }
+  .newletter h1 {
+    font-size: 20px;
+  }
+  footer .link ul li {
+    margin-bottom: 10px;
+  }
+  footer .box .text h4 {
+    font-size: 14px;
   }
 }
 footer .logo span {

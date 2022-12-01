@@ -17,9 +17,9 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="about" element={<About />} />
-          <Route path="contact" element={<Contact />} />
-          <Route exact path="courses" element={<CourseHome />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route exact path="/courses" element={<CourseHome />} />
           <Route exact path="/team" element={<Team />} />
           <Route exact path="/pricing" element={<Pricing />} />
           <Route exact path="/journal" element={<Blog />} />
