@@ -52,6 +52,22 @@
   font-weight: 500;
   font-size: 14px;
 }
+
+.items .please-login-first-button {
+  color: #ec3434;
+  display: inline-block;
+  font-size: 11px;
+
+  padding: 2px;
+
+  box-shadow: 2px 2px rgba(71, 107, 108, 0.6);
+  border-radius: 4px;
+}
+.items .please-login-first-button:hover {
+  box-shadow: 1px 1px;
+  cursor: pointer;
+}
+
 .coursesCard .price {
   margin: 30px 0;
   background-color: #f8f8f8;

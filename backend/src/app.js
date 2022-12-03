@@ -8,11 +8,13 @@ const admin = require("./models/admin");
 const path = require("path");
 const routes = require("./routers/main.js");
 const hbs = require("hbs");
-
+const { v4: uuidV4 } = require("uuid");
+const cors = require("cors");
 const app = express();
 
 //parser
-app.use(express.json());
+app.use(cors());
+app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 //static/css/style.css
 app.use("/static", express.static("backend/public"));

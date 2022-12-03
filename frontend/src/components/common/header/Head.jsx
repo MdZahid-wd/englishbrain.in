@@ -38,7 +38,11 @@ const Head = (props) => {
               onClick={() => loginHandler()}
               class="fa-regular fa-user icon rst"
             >
-              <p id="login-name-id" className="rst">
+              <p
+                onClick={() => loginHandler()}
+                id="login-name-id"
+                className="rst"
+              >
                 Login
               </p>
             </i>

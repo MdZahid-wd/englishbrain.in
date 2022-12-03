@@ -1,0 +1,25 @@
+.enrollCourse {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+}
+.enroll-card-body {
+  width: 30%;
+  text-align: center;
+}
+.back h1,
+h2 {
+  display: none;
+}
+@media screen and (max-width: 768px) {
+  .enrollCourse {
+    display: block;
+    margin-left: 10px;
+  }
+  .enroll-card-body {
+    width: 90%;
+    position: absolute;
+    top: 200px;
+    z-index: -1;
+  }
+}

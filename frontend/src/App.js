@@ -9,6 +9,7 @@ import Blog from "./components/blog/Blog";
 import Contact from "./components/contact/Contact";
 import Footer from "./components/common/footer/Footer";
 import Home from "./components/home/Home";
+import EnRollCourse from "./components/enroll course/EnRollCourse";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route exact path="/team" element={<Team />} />
           <Route exact path="/pricing" element={<Pricing />} />
           <Route exact path="/journal" element={<Blog />} />
+          <Route exact path="/payment" element={<EnRollCourse />} />
         </Routes>
         <Footer></Footer>
       </BrowserRouter>

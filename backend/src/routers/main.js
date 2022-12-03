@@ -1280,4 +1280,30 @@ routes.post("/api/profilePicUpdate", loginPresent, async (req, res) => {
     res.send("error");
   }
 });
+//api course enRoll/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+routes.post("/api/enRollCourse", loginPresent, async (req, res) => {
+  console.log(req.body);
+  console.log(req.userId);
+  console.log(req.login);
+  if (req.login == "Login" && req.userId == null) {
+    res.send("login first");
+  } else {
+    try {
+      const data = await student.findOne({ _id: req.userId });
+
+      res.send({
+        email: data.email,
+        name: data.name,
+        courseName: req.body.id,
+        address: data.address,
+        state: data.state,
+        postcode: data.postcode,
+        course: data.course,
+      });
+    } catch (e) {
+      console.log(e);
+      res.send("error");
+    }
+  }
+});
 module.exports = routes;

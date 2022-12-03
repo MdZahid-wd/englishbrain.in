@@ -2,15 +2,53 @@ import React from "react";
 import "./courses.css";
 import { coursesCard } from "../../dummydata";
 import Heading from "../common/heading/Heading";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 const CoursesCard = () => {
+  let [studentInfo, setStudentInfo] = useState();
+  const enRollClick = async (ev) => {
+    let x = ev.currentTarget.name;
+    console.log(x);
+    try {
+      const { data } = await axios.post("/api/enRollCourse", { id: x });
+
+      if (data == "login first") {
+        document.getElementById(x).lastChild.removeAttribute("hidden");
+      } else {
+        if (studentInfo != data) {
+          setStudentInfo(data);
+        }
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  useEffect(() => {
+    console.log("student update");
+    if (studentInfo) {
+      document.getElementById("enRoll-link").click();
+    }
+  }, [studentInfo]);
+  const viewVideoClick = async () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <>
+      <Link id="enRoll-link" to="/payment" state={studentInfo} hidden>
+        payment
+      </Link>
+
       <section className="coursesCard">
         <Heading subtitle="COURSES" title="Browse More Courses" />
         <div className="container grid2">
           {coursesCard.map((val) => (
-            <div className="items">
+            <div className="items" id={val.coursesName}>
               <div className="content flex">
                 <div className="left">
                   <div className="img">
@@ -44,12 +82,26 @@ const CoursesCard = () => {
                   </div>
                 </div>
               </div>
+
               <div className="price">
                 <h3>
                   {val.priceAll} / {val.pricePer}
                 </h3>
               </div>
-              <button className="outline-btn">ENROLL NOW !</button>
+              <button
+                name={val.coursesName}
+                onClick={(ev) => enRollClick(ev)}
+                className="outline-btn"
+              >
+                ENROLL NOW !
+              </button>
+              <div
+                hidden
+                className="please-login-first-button"
+                onClick={() => viewVideoClick()}
+              >
+                please login first <i class="fa-solid fa-chevron-down"></i>
+              </div>
             </div>
           ))}
         </div>

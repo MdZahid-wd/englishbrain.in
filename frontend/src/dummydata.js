@@ -173,32 +173,32 @@ export const coursesCard = [
 ];
 export const online = [
   {
-    cover: "./images/courses/online/o6.png",
-    hoverCover: "./images/courses/online/o6.1.png",
+    cover: "./images/courses/online/calculating1.png",
+    hoverCover: "./images/courses/online/calculating.png",
     courseName: "maths",
     course: "25 videos",
   },
   {
-    cover: "./images/courses/online/o5.png",
-    hoverCover: "./images/courses/online/o5.1.png",
+    cover: "./images/courses/online/physics1.png",
+    hoverCover: "./images/courses/online/physics.png",
     courseName: "Physics",
     course: "0 videos",
   },
   {
-    cover: "./images/courses/online/o3.png",
-    hoverCover: "./images/courses/online/o3.1.png",
+    cover: "./images/courses/online/chemistry1.png",
+    hoverCover: "./images/courses/online/chemistry.png",
     courseName: "Chemistry",
     course: "0 videos",
   },
   {
-    cover: "./images/courses/online/o1.png",
-    hoverCover: "./images/courses/online/o1.1.png",
+    cover: "./images/courses/online/travel1.png",
+    hoverCover: "./images/courses/online/travel.png",
     courseName: "english",
     course: "0 videos",
   },
   {
-    cover: "./images/courses/online/o7.png",
-    hoverCover: "./images/courses/online/o7.1.png",
+    cover: "./images/courses/online/biology1.png",
+    hoverCover: "./images/courses/online/biology.png",
     courseName: "biology",
     course: "0 videos",
   },
